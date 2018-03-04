@@ -1,0 +1,27 @@
+;;; -*- coding: utf-8 -*-
+
+;; ----- ido-last-directory-list -----
+(
+ ("/home/alfedi/" . ".emacs.d/")
+)
+
+;; ----- ido-work-directory-list -----
+(
+ "/home/alfedi/.emacs.d/"
+)
+
+;; ----- ido-work-file-list -----
+(
+ "init.el"
+ "ac-comphist.dat"
+)
+
+;; ----- ido-dir-file-cache -----
+(
+ ("/home/alfedi/.emacs.d/" (23195 61774 42715 637000) "ido.last" "elpa/" "ac-comphist.dat" "./" "snippets/" "../" "init.el" "README.md" ".git/")
+
+ ("/home/alfedi/" (23195 61787 494720 712000) ".swt/" "Descargas/" ".xsession-errors" ".steampath" ".bash_logout" "Escritorio/" ".gnome2/" ".profile" ".nestopia/" ".gitconfig" "foo~" ".gimp-2.8/" ".Xauthority" ".toe-scores" "oh-my-zsh/" ".python_history" ".cache/" ".rstudio-desktop/" ".cups/" ".zshrc" ".fctsslvpnhistory" ".zshrc.pre-oh-my-zsh" "Plantillas/" ".viminfo" "TUTORIAL.es~" ".nano/" ".android/" ".ghc/" ".gphoto/" "Imágenes/" "Juegos/" ".mozilla/" ".gnome/" ".pki/" ".gnupg/" ".Rhistory" ".spotifywebplayer/" ".atom/" ".zsh_history" ".p2/" "./" ".tooling/" "Documentos/" ".bashrc" ".local/" "stars.png" ".zsh-update" "../" ".config/" ".gconf/" ".zcompdump" ".emacs.d/" ".java/" ".steam/" ".godot/" ".toe-scores~" ".bash_history" ".cert/" "workspace/" ".Algo.swp" ".ICEauthority" ".m2/" "R/" ".oh-my-zsh/" ".RData" ".steampid" ".pulse-cookie" ".wine/" "Grabaciones/" ".audacity-data/" "Público/" ".ssh/" "Música/" "Vídeos/" ".moria-save" ".systemshock2/" ".emacs-custom.el" ".gnome2_private/" ".msf4/" ".hplip/" ".thumbnails/" ".zcompdump-PCcito-5.4.2")
+)
+
+;; ----- ido-unc-hosts-cache -----
+t

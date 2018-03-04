@@ -1,5 +1,5 @@
 ;; Toda la mierda va a ir aquí, maldita configuración custom :(
-(setq custom-file "~/.emacs-custom.el")
+(setq custom-file "~/.emacs.d/.emacs-custom.el")
 ;; Comprobación de paquetes lo primero. Nos conectamos tanto a melpa como a melpa-stable
 (when (>= emacs-major-version 24)
   (require 'package)
