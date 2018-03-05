@@ -17,6 +17,8 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (setq inhibit-startup-screen t)
+(display-time-mode 1)
+(display-battery-mode 1)
 ;; Tema
 (use-package cyberpunk-theme
 	     :ensure t
