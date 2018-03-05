@@ -39,11 +39,6 @@
 (electric-pair-mode 1)
 (show-paren-mode 1)
 (setq make-backup-files nil)
-;; Programación
-(use-package elpy
-	     :ensure t
-	     :mode "\\.py\\'"
-	     :init (elpy-enable))
 ;; Juegos :D
 (use-package tetris
 	     :ensure t
