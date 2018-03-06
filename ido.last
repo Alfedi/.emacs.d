@@ -2,39 +2,60 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/home/alfedi/Documentos/Universidad/2S/Programacion_II/" . "19-02/")
  ("/home/alfedi/Documentos/Universidad/2S/Sistemas_Digitales/Practicas/" . "Practica1/")
  ("/home/alfedi/Documentos/Universidad/2S/Sistemas_Digitales/" . "Practicas/")
- ("/home/alfedi/Documentos/Universidad/2S/" . "Sistemas_Digitales/")
+ ("/home/alfedi/Documentos/Universidad/2S/" . "Programacion_II/")
  ("/home/alfedi/Documentos/Universidad/" . "2S/")
  ("/home/alfedi/Documentos/Trasteando/" . "LaTeX/")
  ("/home/alfedi/Documentos/ACM/Python/JuegoDeLaVida/" . "JuegoDeLaVida/")
  ("/home/alfedi/Documentos/ACM/Python/" . "JuegoDeLaVida/")
  ("/home/alfedi/Documentos/ACM/" . "Python/")
  ("/home/alfedi/Documentos/" . "Universidad/")
- ("/home/alfedi/" . "Documentos/")
+ ("/home/alfedi/" . ".emacs.d/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
- "/home/alfedi/Documentos/Universidad/2S/Sistemas_Digitales/Practicas/Practica1/"
- "/home/alfedi/Documentos/Trasteando/LaTeX/"
+ "/home/alfedi/Documentos/Universidad/2S/Programacion_II/19-02/"
+ "/home/alfedi/Documentos/Universidad/2S/Programacion_II/06-03/"
  "/home/alfedi/.emacs.d/"
+ "/home/alfedi/Documentos/Trasteando/LaTeX/"
+ "/home/alfedi/Documentos/Universidad/2S/Sistemas_Digitales/Practicas/Practica1/"
  "/home/alfedi/"
  "/home/alfedi/Documentos/ACM/Python/JuegoDeLaVida/JuegoDeLaVida/"
 )
 
 ;; ----- ido-work-file-list -----
 (
- "Entrega.tex"
- "prueba.tex"
+ "ImprimirGuia.java"
+ "AgendaOrdenada.java"
+ "Contacto.java"
+ "ImprimirGuiaOrd.java"
  "init.el"
- ".emacs-custom.el"
- "actualizar.py"
- "ac-comphist.dat"
+ "ordenes.txt"
+ "salida.ans"
+ "prueba.tex"
+ "prueba.log"
+ "Entrega.tex"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
+ ("/home/alfedi/" (23198 45004 862842 307000) ".swt/" "Descargas/" ".xsession-errors" ".steampath" ".bash_logout" "Escritorio/" ".gnome2/" ".profile" ".nestopia/" ".gitconfig" "foo~" ".gimp-2.8/" ".Xauthority" ".toe-scores" "oh-my-zsh/" ".python_history" ".cache/" ".rstudio-desktop/" ".cups/" ".zshrc" ".fctsslvpnhistory" ".zshrc.pre-oh-my-zsh" "Plantillas/" ".viminfo" "TUTORIAL.es~" ".nano/" ".android/" ".ghc/" ".gphoto/" "Imágenes/" "Juegos/" ".mozilla/" ".gnome/" ".pki/" ".gnupg/" ".Rhistory" ".spotifywebplayer/" ".atom/" ".zsh_history" ".p2/" "./" ".tooling/" "Documentos/" ".bashrc" ".local/" ".zsh-update" "../" ".config/" ".gconf/" ".zcompdump" ".emacs.d/" ".java/" ".steam/" ".godot/" ".toe-scores~" ".bash_history" ".cert/" "workspace/" ".Algo.swp" ".ICEauthority" ".m2/" "R/" ".oh-my-zsh/" ".RData" ".steampid" ".pulse-cookie" ".wine/" "Grabaciones/" ".audacity-data/" "Público/" ".ssh/" "Música/" "Vídeos/" ".moria-save" ".systemshock2/" ".gnome2_private/" ".msf4/" ".hplip/" ".thumbnails/" ".zcompdump-PCcito-5.4.2")
+
+ ("/home/alfedi/Documentos/Universidad/2S/Programacion_II/06-03/" (23198 46028 398884 413000) "Contacto.java" "AgendaOrdenada.java" "ImprimirGuiaOrd.java" "inicio/" "AgendaOrdenada.class" "./" "../" "ordenes.txt" "salida.ans" "Contacto.class")
+
+ ("/home/alfedi/.emacs.d/" (23198 42423 94736 99000) "ido.last" "elpa/" "ac-comphist.dat" "./" "auto-save-list/" "snippets/" "../" "init.el" ".emacs-custom.el" "README.md" ".git/")
+
+ ("/home/alfedi/Documentos/Trasteando/LaTeX/" (23197 43392 352249 662000) "prueba.aux" "prueba.log" "prueba.pdf" "./" "ImagenesPrueba/" "../" "prueba.tex" "prueba.tex~" "Libros/")
+
+ ("/home/alfedi/Documentos/Universidad/2S/Programacion_II/19-02/" (23189 11035 810587 656000) "Contacto.java" "Contacto.java~" "ImprimirGuia.java" "./" "ordenes.txt~" "../" "ImprimirGuia.class" "ImprimirGuia.java~" "ordenes.txt" "Contacto.class")
+
+ ("/home/alfedi/Documentos/Universidad/2S/Programacion_II/" (23198 21503 700005 912000) "Teoría/" "12-02/" "06-03/" "Examenes/" "./" "../" "Ejercicios/" "13-02/" "19-02/" "06-02/" "ClasesdeEl/")
+
+ ("/home/alfedi/Documentos/Universidad/2S/Programacion_II/06-02/" (23169 27108 999957 152000) "A.java" "A.class" "Primeritaclasedeprogra2.class" "./" "BienvenidosaProga2.java" "../" "R.java" "R.class")
+
  ("/home/alfedi/Documentos/Universidad/2S/Sistemas_Digitales/Practicas/Practica1/" (23194 60358 330339 415000) "Entrega.log" "Entrega.tex~" "Entrega.aux" "./" "../" "Entrega.pdf" "Entrega.tex")
 
  ("/home/alfedi/Documentos/Universidad/2S/Sistemas_Digitales/Practicas/" (23194 36125 685843 397000) "Practica0.zip" "Practica1/" "Practica0/" "./" "../")
@@ -45,17 +66,11 @@
 
  ("/home/alfedi/Documentos/Universidad/" (23163 774 132032 751000) "Calendario.png" "2S/" "./" "1S/" "../" "Horario.png")
 
- ("/home/alfedi/Documentos/Trasteando/LaTeX/" (23194 59054 372618 114000) "prueba.aux" "prueba.log" "prueba.pdf" "./" "ImagenesPrueba/" "../" "prueba.tex" "prueba.tex~" "Libros/")
-
  ("/home/alfedi/Documentos/Trasteando/hnes/" (23186 32453 285536 578000) "hnes.cabal" "app/" "test/" "src/" ".travis.yml" "stack.yaml" ".gitignore" ".stylish-haskell.yaml" "./" "run.sh" "../" "Setup.hs" "screenshots/" "roms/" "LICENSE" "README.md" ".git/")
 
  ("/home/alfedi/Documentos/Trasteando/" (23187 8505 341487 784000) "LaTeX/" "mitmAP/" "./" "../" "hnes/" "Retos_Atenea/" "Dados/")
 
  ("/home/alfedi/Documentos/" (23197 15551 201230 472000) "mastering-emacs-v2.pdf" "PruebasJava.java" "PruebasJava.java~" "ACM/" "Cæsar.java" "zoiProgramadoh.class" "zoiProgramadoh.java" "VPN/" "./" "Universidad/" "../" "book_downloader.py" "PalabrasYLetras.class" "refcard.pdf" "Trasteando/" "PruebasJ.class" "Cæsar.py" "#PruebasJava.java#" "Cæsar.class" "DnD/" "CW_factorizar.java" "Chan.java")
-
- ("/home/alfedi/" (23197 15577 961224 722000) ".swt/" "Descargas/" ".xsession-errors" ".steampath" ".bash_logout" "Escritorio/" ".gnome2/" ".profile" ".nestopia/" ".gitconfig" "foo~" ".gimp-2.8/" ".Xauthority" ".toe-scores" "oh-my-zsh/" ".python_history" ".cache/" ".rstudio-desktop/" ".cups/" ".zshrc" ".fctsslvpnhistory" ".zshrc.pre-oh-my-zsh" "Plantillas/" ".viminfo" "TUTORIAL.es~" ".nano/" ".android/" ".ghc/" ".gphoto/" "Imágenes/" "Juegos/" ".mozilla/" ".gnome/" ".pki/" ".gnupg/" ".Rhistory" ".spotifywebplayer/" ".atom/" ".zsh_history" ".p2/" "./" ".tooling/" "Documentos/" ".bashrc" ".local/" ".zsh-update" "../" ".config/" ".gconf/" ".zcompdump" ".emacs.d/" ".java/" ".steam/" ".godot/" ".toe-scores~" ".bash_history" ".cert/" "workspace/" ".Algo.swp" ".ICEauthority" ".m2/" "R/" ".oh-my-zsh/" ".RData" ".steampid" ".pulse-cookie" ".wine/" "Grabaciones/" ".audacity-data/" "Público/" ".ssh/" "Música/" "Vídeos/" ".moria-save" ".systemshock2/" ".gnome2_private/" ".msf4/" ".hplip/" ".thumbnails/" ".zcompdump-PCcito-5.4.2")
-
- ("/home/alfedi/.emacs.d/" (23197 15369 113299 311000) "ido.last" "elpa/" "ac-comphist.dat" "./" "auto-save-list/" "snippets/" "../" "init.el" ".emacs-custom.el" "README.md" ".git/")
 
  ("/home/alfedi/Documentos/ACM/Python/JuegoDeLaVida/JuegoDeLaVida/" (23094 54971 255962 424000) "actualizar.py" "cesar.py" "genMat.py" "./" "pruebas.py" "JuegoDeLaVidaOBJ.py" "../" "README.md" ".git/")
 
