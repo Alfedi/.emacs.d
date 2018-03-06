@@ -19,6 +19,9 @@
 (setq inhibit-startup-screen t)
 (display-time-mode 1)
 (display-battery-mode 1)
+(use-package rainbow-delimiters
+  :ensure t
+  :config (rainbow-delimiters-mode 1))
 ;; Tema
 (use-package cyberpunk-theme
 	     :ensure t
@@ -57,7 +60,4 @@
 	("C-S-s n" . spotify-next)
 	("C-S-s b" . spotify-previous)
 	("C-S-s c" . spotify-current)))
-(use-package multi-term
-  :ensure t
-  :config (setq multi-term-program "/bin/zsh")
-  :bind("C-x t" . multi-term))
+
