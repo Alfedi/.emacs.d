@@ -21,7 +21,11 @@
 (display-battery-mode 1)
 (use-package rainbow-delimiters
   :ensure t
-  :config (rainbow-delimiters-mode 1))
+  :init
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode 1))
+(use-package telephone-line
+  :ensure t
+  :config (telephone-line-mode 1))
 ;; Tema
 (use-package cyberpunk-theme
 	     :ensure t
