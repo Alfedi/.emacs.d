@@ -2,8 +2,8 @@
 
 ## Indice
 * Instalación de paquetes
-* [Melpa][Melpa]
-* [Use-package][UsePackage]
+** [Melpa][Melpa]
+** [Use-package][UsePackage]
 * Cosas bonitas :D
 * [Configuración Variada][ConfigVar]
 * [Rainbow-delimiters][rainbowdel]
