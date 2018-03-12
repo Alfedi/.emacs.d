@@ -16,6 +16,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(toggle-frame-fullscreen)
 (setq inhibit-startup-screen t)
 (display-time-mode 1)
 (display-battery-mode 1)
@@ -24,24 +25,27 @@
   :init
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode 1))
 (use-package telephone-line
-  :ensure t
-  :config (telephone-line-mode 1))
-;; Tema
-(use-package cyberpunk-theme
+  :ensure t) ;; Bueno, esto necesita un repaso gordo. Espero que mole mucho.
+(setq telephone-line-subseparator-faces '())
+(setq telephone-line-height 24
+      telephone-line-evil-use-short-tag t)
+(telephone-line-mode t)
+  ;; Tema
+  (use-package cyberpunk-theme
 	     :ensure t
 	     :init (load-theme 'cyberpunk t))
-;; Unas cuantas utilidades para mejorar nuestra experiencia
-(use-package windmove
-	     :ensure t
-	     :bind (("M-<up>" . windmove-up)
-		    ("M-<down>" . windmove-down)
-		    ("M-<right>" . windmove-right)
-		    ("M-<left>" . windmove-left)))
+  ;; Unas cuantas utilidades para mejorar nuestra experiencia
+  (use-package windmove
+    :ensure t
+    :bind (("M-<up>" . windmove-up)
+	   ("M-<down>" . windmove-down)
+	   ("M-<right>" . windmove-right)
+	   ("M-<left>" . windmove-left)))
 (use-package ido
-	     :init (ido-mode))
+  :init (ido-mode))
 (use-package auto-complete
-	     :ensure t
-	     :config (ac-config-default))
+  :ensure t
+  :config (ac-config-default))
 (use-package company
   :init
   (add-hook 'after-init-hook 'global-company-mode))
@@ -50,18 +54,17 @@
 (setq make-backup-files nil)
 ;; Juegos :D
 (use-package tetris
-	     :ensure t
-	     :bind ("C-t" . tetris))
+  :ensure t
+  :bind ("C-t" . tetris))
 (use-package typing
-	     :ensure t )
+  :ensure t )
 ;; Accesorios varios
 (use-package zone-rainbow
-	     :ensure t
-	     :bind ("C-z" . zone-rainbow))
+  :ensure t
+  :bind ("C-z" . zone-rainbow))
 (use-package spotify
   :ensure t
   :bind(("C-S-s p" . spotify-playpause)
 	("C-S-s n" . spotify-next)
 	("C-S-s b" . spotify-previous)
 	("C-S-s c" . spotify-current)))
-
