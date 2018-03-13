@@ -71,3 +71,8 @@
 	("C-S-s n" . spotify-next)
 	("C-S-s b" . spotify-previous)
 	("C-S-s c" . spotify-current)))
+;; Modos para programar (Aunque no hay nada de programación aquí xD) y demás
+(use-package markdown-mode+
+  :ensure t)
+(use-package flymd
+  :ensure t)

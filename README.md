@@ -20,7 +20,8 @@
 * Accesorios varios
   * [Zone-rainbow](https://github.com/Alfedi/.emacs.d#zone-rainbow)
   * [Spotify](https://github.com/Alfedi/.emacs.d#spotify)
-
+* Modos de programación y demás (Aunque de momento no hay nada de programación)
+  * [Markdown](https://github.com/Alfedi/.emacs.d#markdown)
 
 ## Instalación de paquetes
 
@@ -160,4 +161,19 @@ Este modo es lo más útil que he encontrado nunca, y con los atajos se puede ha
 	("C-S-s n" . spotify-next)
 	("C-S-s b" . spotify-previous)
 	("C-S-s c" . spotify-current)))
+```
+
+
+## Modos de programación y demás (Sin programación xD)
+
+### [Markdown](markdown)
+Como soy un pijo para estas cosas me gusta tener todo lo que vaya a hacer organizadito, y como hago los markdown en emacs me gusta poder usar este modo
+```emacs-lisp
+(use-package markdown-mode+
+  :ensure t)
+```
+Y para poder visualizarlo en tiempo real uso el flymd, que no está mal :/
+```emacs-lisp
+(use-package flymd
+  :ensure t)
 ```
