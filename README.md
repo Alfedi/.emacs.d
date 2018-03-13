@@ -121,10 +121,16 @@ Junto con `company` es un autocompletado como su nombre indica
 (use-package company-mode
   :init
   (add-hook 'after-init-hook 'global-company-mode))
+```
+
+### Varios básicos
+Simplemente son unas chorradas que me hacen las cosas más fáciles como el autocierre de paréntesis, el highlight de estos, y la eliminación de los que a mi me parecen tan molestos backups (En proceso de descubir como moverlos a una carpeta)
+```emacs-lisp
 (electric-pair-mode 1)
 (show-paren-mode 1)
 (setq make-backup-files nil)
 ```
+
 ## Juegos ;)
 
 ### [Tetris](tetris)
