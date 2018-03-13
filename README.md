@@ -24,7 +24,7 @@
 
 ## Instalación de paquetes
 
-### Melpa(#melpa)
+### [Melpa](#melpa)
 Lo primero de todo es establecer nuestros gestores de paquetes y para ello realizamos la comprobación y conexión a `melpa-stable`.
 ```emacs-lisp
 (when (>= emacs-major-version 24)
