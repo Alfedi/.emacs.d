@@ -6,6 +6,9 @@
   (add-to-list
    'package-archives
    '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+  (add-to-list
+   'package-archives
+   '("melpa" . "http://melpa.org/packages/"))
   (package-initialize))
 ;; Ahora el use-package que agilizará la instalación de nuestros paquetes
 (unless (featurep 'use-package)
@@ -46,7 +49,7 @@
 (use-package auto-complete
   :ensure t
   :config (ac-config-default))
-(use-package company
+(use-package company-mode
   :init
   (add-hook 'after-init-hook 'global-company-mode))
 (electric-pair-mode 1)
