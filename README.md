@@ -3,23 +3,23 @@
 ## Indice
 * Instalación de paquetes
   * [Melpa](https://github.com/Alfedi/.emacs.d#melpa)
-  * [Use-package]((https://github.com/Alfedi/.emacs.d#UsePackage)
+  * [Use-package](https://github.com/Alfedi/.emacs.d#UsePackage)
 * Cosas bonitas :D
-  * [Configuración Variada]((https://github.com/Alfedi/.emacs.d#configVariada)
-  * [Rainbow-delimiters]((https://github.com/Alfedi/.emacs.d#rainbow-del)
+  * [Configuración Variada](https://github.com/Alfedi/.emacs.d#configVariada)
+  * [Rainbow-delimiters](https://github.com/Alfedi/.emacs.d#rainbow-del)
   * [Telephone-line](https://github.com/Alfedi/.emacs.d#telephone)
-  * [El tema]((https://github.com/Alfedi/.emacs.d#tema)
+  * [El tema](https://github.com/Alfedi/.emacs.d#tema)
 * Cosas usables en plan bien
-  * [Windmove]((https://github.com/Alfedi/.emacs.d#windmove)
-  * [Ido]((https://github.com/Alfedi/.emacs.d#ido)
-  * [Auto-complete]((https://github.com/Alfedi/.emacs.d#autocomplete)
-  * [Company]((https://github.com/Alfedi/.emacs.d#company)
+  * [Windmove](https://github.com/Alfedi/.emacs.d#windmove)
+  * [Ido](https://github.com/Alfedi/.emacs.d#ido)
+  * [Auto-complete](https://github.com/Alfedi/.emacs.d#autocomplete)
+  * [Company](https://github.com/Alfedi/.emacs.d#company)
 * Juegos ;)
-  * [Tetris]((https://github.com/Alfedi/.emacs.d#tetris)
-  * [Typing of emacs]((https://github.com/Alfedi/.emacs.d#typing)
+  * [Tetris](https://github.com/Alfedi/.emacs.d#tetris)
+  * [Typing of emacs](https://github.com/Alfedi/.emacs.d#typing)
 * Accesorios varios
-  * [Zone-rainbow]((https://github.com/Alfedi/.emacs.d#zone-rainbow)
-  * [Spotify]((https://github.com/Alfedi/.emacs.d#spotify)
+  * [Zone-rainbow](https://github.com/Alfedi/.emacs.d#zone-rainbow)
+  * [Spotify](https://github.com/Alfedi/.emacs.d#spotify)
 
 
 ## Instalación de paquetes
