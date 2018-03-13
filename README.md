@@ -14,6 +14,7 @@
   * [Ido](https://github.com/Alfedi/.emacs.d#ido)
   * [Auto-complete](https://github.com/Alfedi/.emacs.d#autocomplete)
   * [Company](https://github.com/Alfedi/.emacs.d#company)
+  * [Varios básicos]((https://github.com/Alfedi/.emacs.d#variedad)
 * Juegos ;)
   * [Tetris](https://github.com/Alfedi/.emacs.d#tetris)
   * [Typing of emacs](https://github.com/Alfedi/.emacs.d#typing)
@@ -123,7 +124,7 @@ Junto con `company` es un autocompletado como su nombre indica
   (add-hook 'after-init-hook 'global-company-mode))
 ```
 
-### Varios básicos
+### [Varios básicos](variedad)
 Simplemente son unas chorradas que me hacen las cosas más fáciles como el autocierre de paréntesis, el highlight de estos, y la eliminación de los que a mi me parecen tan molestos backups (En proceso de descubir como moverlos a una carpeta)
 ```emacs-lisp
 (electric-pair-mode 1)
