@@ -2,7 +2,7 @@
 
 ## Indice
 * Instalación de paquetes
-  * [Melpa]()
+  * [Melpa](https://github.com/Alfedi/.emacs.d#melpa)
   * [Use-package][UsePackage]
 * Cosas bonitas :D
   * [Configuración Variada][ConfigVar]
@@ -24,7 +24,7 @@
 
 ## Instalación de paquetes
 
-### Melpa
+### [Melpa](#melpa)
 Lo primero de todo es establecer nuestros gestores de paquetes y para ello realizamos la comprobación y conexión a `melpa-stable`.
 ```emacs-lisp
 (when (>= emacs-major-version 24)
