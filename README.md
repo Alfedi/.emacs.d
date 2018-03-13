@@ -75,7 +75,7 @@ Con este maravilloso paquete tenemos todos los paréntesis, corchetes y llaves d
 Con esta maravilla podemos haccer una powerline mucho más bonita y personalizable, a pesar de que uso uno de los ejemplos del [github del autor original](https://github.com/dbordak/telephone-line).
 ```emacs-lisp
 (use-package telephone-line
-  :ensure t) ;; Bueno, esto necesita un repaso gordo. Espero que mole mucho.
+  :ensure t)
 (setq telephone-line-subseparator-faces '())
 (setq telephone-line-height 24
       telephone-line-evil-use-short-tag t)
@@ -92,7 +92,7 @@ Mi maravilloso tema, no tiene mucho más misterio.
 ## Cosas usables en plan bien
 
 ### [Windmove](windmove)
-Con `windmove` podemos cambiar el desplazamiento entre buffers a algo más sencillo que `C-n O`
+Con `windmove` podemos cambiar el desplazamiento entre buffers a algo más sencillo que `C-n O`.
 ```emacs-lisp
   (use-package windmove
     :ensure t
@@ -103,14 +103,14 @@ Con `windmove` podemos cambiar el desplazamiento entre buffers a algo más senci
 ```
 
 ### [Ido](ido)
-A muy groso mod es un autocompletado del minibuffer. Es imprescindible
+A muy groso modo es un autocompletado del minibuffer. Es imprescindible.
 ```emacs-lisp
 (use-package ido
   :init (ido-mode))
 ```
 
 ### [Auto-complete](autocomplete)
-Junto con `company` es un autocompletado como su nombre indica
+Junto con `company` es un autocompletado como su nombre indica.
 ```emacs-lisp
 (use-package auto-complete
   :ensure t
@@ -125,11 +125,11 @@ Junto con `company` es un autocompletado como su nombre indica
 ```
 
 ### [Varios básicos](variedad)
-Simplemente son unas chorradas que me hacen las cosas más fáciles como el autocierre de paréntesis, el highlight de estos, y la eliminación de los que a mi me parecen tan molestos backups (En proceso de descubir como moverlos a una carpeta)
+Simplemente son unas chorradas que me hacen las cosas más fáciles como el autocierre de paréntesis, el highlight de estos, y el alamacenamiento de los backups para que nos estén por ahí molestando.
 ```emacs-lisp
 (electric-pair-mode 1)
 (show-paren-mode 1)
-(setq make-backup-files nil)
+(setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 ```
 
 ## Juegos ;)
@@ -152,7 +152,7 @@ Un símil con el typing of the dead original. Está bastante decente (Solo dispo
 ## Accesorios varios
 
 ### [Zone-rainbow](zone-rainbow)
-Es lo mejorcito de emacs, poder poner el arcoiris en cualquier buffer
+Es lo mejorcito de emacs, poder poner el arcoiris en cualquier buffer.
 ```emacs-lisp
 (use-package zone-rainbow
   :ensure t
@@ -160,7 +160,7 @@ Es lo mejorcito de emacs, poder poner el arcoiris en cualquier buffer
 ```
 
 ### [Spotify](spotify)
-Este modo es lo más útil que he encontrado nunca, y con los atajos se puede hacer bastante sencillo
+Este modo es lo más útil que he encontrado nunca, y con los atajos se puede hacer bastante sencillo.
 ```emacs-lisp
 (use-package spotify
   :ensure t
@@ -174,12 +174,12 @@ Este modo es lo más útil que he encontrado nunca, y con los atajos se puede ha
 ## Modos de programación y demás (Sin programación xD)
 
 ### [Markdown](markdown)
-Como soy un pijo para estas cosas me gusta tener todo lo que vaya a hacer organizadito, y como hago los markdown en emacs me gusta poder usar este modo
+Como soy un pijo para estas cosas me gusta tener todo lo que vaya a hacer organizadito, y como hago los markdown en emacs me gusta poder usar este modo.
 ```emacs-lisp
 (use-package markdown-mode+
   :ensure t)
 ```
-Y para poder visualizarlo en tiempo real uso el flymd, que no está mal :/
+Y para poder visualizarlo en tiempo real uso el flymd.
 ```emacs-lisp
 (use-package flymd
   :ensure t)
