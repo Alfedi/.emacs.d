@@ -14,7 +14,7 @@
   * [Ido](https://github.com/Alfedi/.emacs.d#ido)
   * [Auto-complete](https://github.com/Alfedi/.emacs.d#autocomplete)
   * [Company](https://github.com/Alfedi/.emacs.d#company)
-  * [Varios básicos]((https://github.com/Alfedi/.emacs.d#variedad)
+  * [Varios básicos](https://github.com/Alfedi/.emacs.d#variedad)
 * Juegos ;)
   * [Tetris](https://github.com/Alfedi/.emacs.d#tetris)
   * [Typing of emacs](https://github.com/Alfedi/.emacs.d#typing)
