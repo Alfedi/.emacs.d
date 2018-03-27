@@ -33,17 +33,17 @@
 (setq telephone-line-height 24
       telephone-line-evil-use-short-tag t)
 (telephone-line-mode t)
-  ;; Tema
-  (use-package cyberpunk-theme
-	     :ensure t
-	     :init (load-theme 'cyberpunk t))
-  ;; Unas cuantas utilidades para mejorar nuestra experiencia
-  (use-package windmove
-    :ensure t
-    :bind (("M-<up>" . windmove-up)
-	   ("M-<down>" . windmove-down)
-	   ("M-<right>" . windmove-right)
-	   ("M-<left>" . windmove-left)))
+;; Tema
+(use-package cyberpunk-theme
+  :ensure t
+  :init (load-theme 'cyberpunk t))
+;; Unas cuantas utilidades para mejorar nuestra experiencia
+(use-package windmove
+  :ensure t
+  :bind (("M-<up>" . windmove-up)
+	 ("M-<down>" . windmove-down)
+	 ("M-<right>" . windmove-right)
+	 ("M-<left>" . windmove-left)))
 (use-package ido
   :init (ido-mode))
 (use-package auto-complete
@@ -54,12 +54,14 @@
   (add-hook 'after-init-hook 'global-company-mode))
 (electric-pair-mode 1)
 (show-paren-mode 1)
-(setq make-backup-files nil)
+(setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 ;; Juegos :D
 (use-package tetris
   :ensure t
   :bind ("C-t" . tetris))
 (use-package typing
+  :ensure t )
+(use-package poker
   :ensure t )
 ;; Accesorios varios
 (use-package zone-rainbow
@@ -76,3 +78,6 @@
   :ensure t)
 (use-package flymd
   :ensure t)
+(use-package magit
+  :ensure t)
+

@@ -1,0 +1,8 @@
+elpa/
+.emacs-custom.el
+auto-save-list/
+*.html
+ido.last
+flymd*
+emacs-backup/
+*.dat

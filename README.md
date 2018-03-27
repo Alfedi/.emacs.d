@@ -18,6 +18,7 @@
 * Juegos ;)
   * [Tetris](https://github.com/Alfedi/.emacs.d#tetris)
   * [Typing of emacs](https://github.com/Alfedi/.emacs.d#typing)
+  * [Poker](https://github.com/Alfedi/.emacs.d#poker)
 * Accesorios varios
   * [Zone-rainbow](https://github.com/Alfedi/.emacs.d#zone-rainbow)
   * [Spotify](https://github.com/Alfedi/.emacs.d#spotify)
@@ -125,7 +126,7 @@ Junto con `company` es un autocompletado como su nombre indica.
 ```
 
 ### [Varios básicos](variedad)
-Simplemente son unas chorradas que me hacen las cosas más fáciles como el autocierre de paréntesis, el highlight de estos, y el alamacenamiento de los backups para que nos estén por ahí molestando.
+Simplemente son unas chorradas que me hacen las cosas más fáciles como el autocierre de paréntesis, el highlight de estos, y el almacenamiento de los backups para que no estén por ahí molestando.
 ```emacs-lisp
 (electric-pair-mode 1)
 (show-paren-mode 1)
@@ -149,6 +150,12 @@ Un símil con el typing of the dead original. Está bastante decente (Solo dispo
   :ensure t )
 ```
 
+### [Poker](poker)
+	Uno de los pequeños placeres de la vida ;)
+```emacs-lisp
+(use-package poker
+:ensure t )
+```
 ## Accesorios varios
 
 ### [Zone-rainbow](zone-rainbow)
