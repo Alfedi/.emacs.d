@@ -3,21 +3,21 @@
 ## Indice
 * Instalación de paquetes
   * [Melpa](https://github.com/Alfedi/.emacs.d#melpa)
-  * [Use-package](https://github.com/Alfedi/.emacs.d#UsePackage)
+  * [Use-package](https://github.com/Alfedi/.emacs.d#use-package)
 * Cosas bonitas :D
-  * [Configuración Variada](https://github.com/Alfedi/.emacs.d#configVariada)
-  * [Rainbow-delimiters](https://github.com/Alfedi/.emacs.d#rainbow-del)
-  * [Telephone-line](https://github.com/Alfedi/.emacs.d#telephone)
-  * [El tema](https://github.com/Alfedi/.emacs.d#tema)
+  * [Configuración Variada](https://github.com/Alfedi/.emacs.d#configuración-variada)
+  * [Rainbow-delimiters](https://github.com/Alfedi/.emacs.d#rainbow-delimiters)
+  * [Telephone-line](https://github.com/Alfedi/.emacs.d#telephone-line)
+  * [El tema](https://github.com/Alfedi/.emacs.d#el-tema)
 * Cosas usables en plan bien
   * [Windmove](https://github.com/Alfedi/.emacs.d#windmove)
   * [Ido](https://github.com/Alfedi/.emacs.d#ido)
   * [Auto-complete](https://github.com/Alfedi/.emacs.d#autocomplete)
   * [Company](https://github.com/Alfedi/.emacs.d#company)
-  * [Varios básicos](https://github.com/Alfedi/.emacs.d#variedad)
+  * [Varios básicos](https://github.com/Alfedi/.emacs.d#varios-básicos)
 * Juegos ;)
   * [Tetris](https://github.com/Alfedi/.emacs.d#tetris)
-  * [Typing of emacs](https://github.com/Alfedi/.emacs.d#typing)
+  * [Typing of emacs](https://github.com/Alfedi/.emacs.d#typing-of-emacs)
   * [Poker](https://github.com/Alfedi/.emacs.d#poker)
 * Accesorios varios
   * [Zone-rainbow](https://github.com/Alfedi/.emacs.d#zone-rainbow)
@@ -40,7 +40,7 @@ Lo primero de todo es establecer nuestros gestores de paquetes y para ello reali
    '("melpa" . "http://melpa.org/packages/"))
   (package-initialize))
 ```
-### [Use-package](UsePackage)
+### Use-package
 Esto es la maravilla, nos permite agilizar toda la instalación y demás cosas relacionadas con paquetes. Es la magia.
 ```emacs-lisp
 (unless (featurep 'use-package)
@@ -50,7 +50,7 @@ Esto es la maravilla, nos permite agilizar toda la instalación y demás cosas r
 
 ## Cosas bonitas :D
 
-### [Configuración Variada](configVariada)
+### Configuración Variada
 Esto no son más que pequeños ajustes que quitan los menús, la barra lateral, quitamos la página del startup y mostramos la batería y el reloj en la powerline.
 ```emacs-lisp
 (tooltip-mode -1)
@@ -63,7 +63,7 @@ Esto no son más que pequeños ajustes que quitan los menús, la barra lateral, 
 (display-battery-mode 1)
 ```
 
-### [Rainbow-delimiters](rainbow-del)
+### Rainbow-delimiters
 Con este maravilloso paquete tenemos todos los paréntesis, corchetes y llaves de colores.
 ```emacs-lisp
 (use-package rainbow-delimiters
@@ -72,7 +72,7 @@ Con este maravilloso paquete tenemos todos los paréntesis, corchetes y llaves d
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode 1))
 ```
 
-### [Telephone-line](telephone)
+### Telephone-line
 Con esta maravilla podemos haccer una powerline mucho más bonita y personalizable, a pesar de que uso uno de los ejemplos del [github del autor original](https://github.com/dbordak/telephone-line).
 ```emacs-lisp
 (use-package telephone-line
@@ -83,7 +83,7 @@ Con esta maravilla podemos haccer una powerline mucho más bonita y personalizab
 (telephone-line-mode t)
 ```
 
-### [El Tema](tema)
+### El Tema
 Mi maravilloso tema, no tiene mucho más misterio.
 ```emacs-lisp
   (use-package cyberpunk-theme
@@ -92,7 +92,7 @@ Mi maravilloso tema, no tiene mucho más misterio.
 ```
 ## Cosas usables en plan bien
 
-### [Windmove](windmove)
+### Windmove
 Con `windmove` podemos cambiar el desplazamiento entre buffers a algo más sencillo que `C-n O`.
 ```emacs-lisp
   (use-package windmove
@@ -103,14 +103,14 @@ Con `windmove` podemos cambiar el desplazamiento entre buffers a algo más senci
 	   ("M-<left>" . windmove-left)))
 ```
 
-### [Ido](ido)
+### Ido
 A muy groso modo es un autocompletado del minibuffer. Es imprescindible.
 ```emacs-lisp
 (use-package ido
   :init (ido-mode))
 ```
 
-### [Auto-complete](autocomplete)
+### Auto-complete
 Junto con `company` es un autocompletado como su nombre indica.
 ```emacs-lisp
 (use-package auto-complete
@@ -118,14 +118,14 @@ Junto con `company` es un autocompletado como su nombre indica.
   :config (ac-config-default))
 ```
 
-### [Company](company)
+### Company
 ```emacs-lisp
 (use-package company-mode
   :init
   (add-hook 'after-init-hook 'global-company-mode))
 ```
 
-### [Varios básicos](variedad)
+### Varios básicos
 Simplemente son unas chorradas que me hacen las cosas más fáciles como el autocierre de paréntesis, el highlight de estos, y el almacenamiento de los backups para que no estén por ahí molestando.
 ```emacs-lisp
 (electric-pair-mode 1)
@@ -135,7 +135,7 @@ Simplemente son unas chorradas que me hacen las cosas más fáciles como el auto
 
 ## Juegos ;)
 
-### [Tetris](tetris)
+### Tetris
 Indispensable.
 ```emacs-lisp
 (use-package tetris
@@ -143,14 +143,14 @@ Indispensable.
   :bind ("C-t" . tetris))
 ```
 
-### [Typing of emacs](typing)
+### Typing of emacs
 Un símil con el typing of the dead original. Está bastante decente (Solo disponible en melpa sin stable).
 ```emacs-lisp
 (use-package typing
   :ensure t )
 ```
 
-### [Poker](poker)
+### Poker
 	Uno de los pequeños placeres de la vida ;)
 ```emacs-lisp
 (use-package poker
@@ -158,7 +158,7 @@ Un símil con el typing of the dead original. Está bastante decente (Solo dispo
 ```
 ## Accesorios varios
 
-### [Zone-rainbow](zone-rainbow)
+### Zone-rainbow
 Es lo mejorcito de emacs, poder poner el arcoiris en cualquier buffer.
 ```emacs-lisp
 (use-package zone-rainbow
@@ -166,7 +166,7 @@ Es lo mejorcito de emacs, poder poner el arcoiris en cualquier buffer.
   :bind ("C-z" . zone-rainbow))
 ```
 
-### [Spotify](spotify)
+### Spotify
 Este modo es lo más útil que he encontrado nunca, y con los atajos se puede hacer bastante sencillo.
 ```emacs-lisp
 (use-package spotify
@@ -180,7 +180,7 @@ Este modo es lo más útil que he encontrado nunca, y con los atajos se puede ha
 
 ## Modos de programación y demás (Sin programación xD)
 
-### [Markdown](markdown)
+### Markdown
 Como soy un pijo para estas cosas me gusta tener todo lo que vaya a hacer organizadito, y como hago los markdown en emacs me gusta poder usar este modo.
 ```emacs-lisp
 (use-package markdown-mode+
