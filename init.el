@@ -73,6 +73,9 @@
 	("C-S-s n" . spotify-next)
 	("C-S-s b" . spotify-previous)
 	("C-S-s c" . spotify-current)))
+(use-package golden-ratio
+  :ensure t
+  :config (golden-ratio-mode t))
 ;; Modos para programar (Aunque no hay nada de programación aquí xD) y demás
 (use-package markdown-mode+
   :ensure t)

@@ -22,6 +22,7 @@
 * Accesorios varios
   * [Zone-rainbow](https://github.com/Alfedi/.emacs.d#zone-rainbow)
   * [Spotify](https://github.com/Alfedi/.emacs.d#spotify)
+  * [Golden-ratio](https://github.com/Alfedi/.emacs.d#golden-ratio)
 * Modos de programación y demás (Aunque de momento no hay nada de programación)
   * [Markdown](https://github.com/Alfedi/.emacs.d#markdown)
 
@@ -176,7 +177,13 @@ Este modo es lo más útil que he encontrado nunca, y con los atajos se puede ha
 	("C-S-s b" . spotify-previous)
 	("C-S-s c" . spotify-current)))
 ```
-
+## Golden-ratio
+Gracias a este paquete podemos hacer focus en un buffer en concreto cuando tenemos muchos abiertos.
+```emacs-lisp
+(use-package golden-ratio
+  :ensure t
+  :config (golden-ratio-mode t))
+```
 
 ## Modos de programación y demás (Sin programación xD)
 
