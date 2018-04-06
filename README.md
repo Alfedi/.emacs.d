@@ -152,7 +152,7 @@ Un símil con el typing of the dead original. Está bastante decente (Solo dispo
 ```
 
 ### Poker
-	Uno de los pequeños placeres de la vida ;)
+Uno de los pequeños placeres de la vida ;)
 ```emacs-lisp
 (use-package poker
 :ensure t )
