@@ -6,3 +6,6 @@ ido.last
 flymd*
 emacs-backup/
 *.dat
+emojis/
+meghanada/
+.emacs-custom*

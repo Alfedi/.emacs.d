@@ -14,14 +14,20 @@
 (unless (featurep 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+(eval-when-compile (require 'use-package))
 ;; Es el momento de hacerlo bonito
+;;(set-default-font "scientifica")
+;;(set-face-attribute 'default nil :height 168)
 (tooltip-mode -1)
 (tool-bar-mode -1)
+(set-window-fringes nil 0 0)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-(toggle-frame-fullscreen)
+;; (toggle-frame-fullscreen)
 (setq inhibit-startup-screen t)
 (display-time-mode 1)
+(setq ring-bell-function 'ignore)
+;;(shell-command-to-string "echo -n $(date +%k:%M--%m-%d)")
 (display-battery-mode 1)
 (use-package rainbow-delimiters
   :ensure t
@@ -46,12 +52,16 @@
 	 ("M-<left>" . windmove-left)))
 (use-package ido
   :init (ido-mode))
-(use-package auto-complete
+(use-package helm
+  :init (helm-mode)
+  :config (require 'helm-config))
+;;(use-package auto-complete
+;;  :ensure t
+;;  :config (ac-config-default))
+(use-package company
   :ensure t
-  :config (ac-config-default))
-(use-package company-mode
   :init
-  (add-hook 'after-init-hook 'global-company-mode))
+  :config (add-hook 'after-init-hook 'global-company-mode))
 (electric-pair-mode 1)
 (show-paren-mode 1)
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
@@ -76,6 +86,9 @@
 (use-package golden-ratio
   :ensure t
   :config (golden-ratio-mode t))
+(use-package rainbow-mode
+  :ensure t
+  :config (rainbow-mode t))
 ;; Modos para programar (Aunque no hay nada de programación aquí xD) y demás
 (use-package markdown-mode+
   :ensure t)
@@ -83,4 +96,7 @@
   :ensure t)
 (use-package magit
   :ensure t)
-
+;;(use-package auctex
+;;  :ensure t)
+;;  :config ((setq TeX-auto-save t)
+;;	   (setq TeX-parse-self t)))

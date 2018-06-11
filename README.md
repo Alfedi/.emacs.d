@@ -85,7 +85,7 @@ Con esta maravilla podemos haccer una powerline mucho más bonita y personalizab
 ```
 
 ### El Tema
-Mi maravilloso tema, no tiene mucho más misterio.
+Se trata del tema cyberpunk pero con la powerline del tema Cherry-blossom con el color cambiado para que todo cuadre (Viene adjunto en el repositorio el tema con los cambios ya hechos).
 ```emacs-lisp
   (use-package cyberpunk-theme
 	     :ensure t
