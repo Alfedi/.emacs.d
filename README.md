@@ -11,10 +11,11 @@
   * [El tema](https://github.com/Alfedi/.emacs.d#el-tema)
 * Cosas usables en plan bien
   * [Windmove](https://github.com/Alfedi/.emacs.d#windmove)
-  * [Ido](https://github.com/Alfedi/.emacs.d#ido)
+  * [Helm](https://github.com/Alfedi/.emacs.d#ido)
   * [Auto-complete](https://github.com/Alfedi/.emacs.d#autocomplete)
   * [Company](https://github.com/Alfedi/.emacs.d#company)
   * [Varios básicos](https://github.com/Alfedi/.emacs.d#varios-básicos)
+  * [Neotree](https://github.com/Alfedi/.emacs.d#neotree)
 * Juegos ;)
   * [Tetris](https://github.com/Alfedi/.emacs.d#tetris)
   * [Typing of emacs](https://github.com/Alfedi/.emacs.d#typing-of-emacs)
@@ -85,11 +86,13 @@ Con esta maravilla podemos haccer una powerline mucho más bonita y personalizab
 ```
 
 ### El Tema
-Se trata del tema cyberpunk pero con la powerline del tema Cherry-blossom con el color cambiado para que todo cuadre (Viene adjunto en el repositorio el tema con los cambios ya hechos).
+Cambio de tema en favor de los doom-themes, mucho más bonitos que el antiguo Cyberpunk
 ```emacs-lisp
-  (use-package cyberpunk-theme
-	     :ensure t
-	     :init (load-theme 'cyberpunk t))
+(use-package doom-themes
+  :ensure t
+  :init (load-theme 'doom-molokai t)
+  :config (doom-themes-org-config)
+          (doom-themes-neotree-config))
 ```
 ## Cosas usables en plan bien
 
@@ -104,15 +107,18 @@ Con `windmove` podemos cambiar el desplazamiento entre buffers a algo más senci
 	   ("M-<left>" . windmove-left)))
 ```
 
-### Ido
-A muy groso modo es un autocompletado del minibuffer. Es imprescindible.
+### Helm
+Cambio a viejo Ido por esta pequeña maravilla que me hace la vida un poquitín más fácil
 ```emacs-lisp
-(use-package ido
-  :init (ido-mode))
+(use-package helm
+  :init (helm-mode 1)
+  :config (require 'helm-config)
+  :bind (("C-x C-f" . helm-find-files)
+	 ("M-x" . helm-M-x)))
 ```
 
 ### Auto-complete
-Junto con `company` es un autocompletado como su nombre indica.
+Junto con `company` es un autocompletado como su nombre indica. (Actualmente desactivado)
 ```emacs-lisp
 (use-package auto-complete
   :ensure t
@@ -132,6 +138,14 @@ Simplemente son unas chorradas que me hacen las cosas más fáciles como el auto
 (electric-pair-mode 1)
 (show-paren-mode 1)
 (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
+```
+
+### Neotree
+Un útil gestor de archivos integrado que nos permite ver la estructura de nuestro programa de forma muy sencilla sin salir de emacs
+```emacs-lisp
+(use-package neotree
+  :ensure t
+  :bind (("C-x n" . neotree-toggle)))
 ```
 
 ## Juegos ;)

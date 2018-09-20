@@ -1,3 +1,4 @@
+
 ;; Toda la mierda va a ir aquí, maldita configuración custom :(
 (setq custom-file "~/.emacs.d/.emacs-custom.el")
 ;; Comprobación de paquetes lo primero. Nos conectamos tanto a melpa como a melpa-stable
@@ -29,6 +30,9 @@
 (setq ring-bell-function 'ignore)
 ;;(shell-command-to-string "echo -n $(date +%k:%M--%m-%d)")
 (display-battery-mode 1)
+(electric-pair-mode 1)
+(show-paren-mode 1)
+(setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 (use-package rainbow-delimiters
   :ensure t
   :init
@@ -40,9 +44,11 @@
       telephone-line-evil-use-short-tag t)
 (telephone-line-mode t)
 ;; Tema
-(use-package cyberpunk-theme
+(use-package doom-themes
   :ensure t
-  :init (load-theme 'cyberpunk t))
+  :init (load-theme 'doom-molokai t)
+  :config (doom-themes-org-config)
+          (doom-themes-neotree-config))
 ;; Unas cuantas utilidades para mejorar nuestra experiencia
 (use-package windmove
   :ensure t
@@ -52,19 +58,25 @@
 	 ("M-<left>" . windmove-left)))
 (use-package ido
   :init (ido-mode))
+(use-package neotree
+  :ensure t
+  :bind (("C-x n" . neotree-toggle)))
+
 (use-package helm
-  :init (helm-mode)
-  :config (require 'helm-config))
+  :init (helm-mode 1)
+  :config (require 'helm-config)
+  :bind (("C-x C-f" . helm-find-files)
+	 ("M-x" . helm-M-x)))
+
 ;;(use-package auto-complete
 ;;  :ensure t
 ;;  :config (ac-config-default))
+
 (use-package company
   :ensure t
   :init
   :config (add-hook 'after-init-hook 'global-company-mode))
-(electric-pair-mode 1)
-(show-paren-mode 1)
-(setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
+
 ;; Juegos :D
 (use-package tetris
   :ensure t
@@ -100,3 +112,4 @@
 ;;  :ensure t)
 ;;  :config ((setq TeX-auto-save t)
 ;;	   (setq TeX-parse-self t)))
+(put 'upcase-region 'disabled nil)
