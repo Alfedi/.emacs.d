@@ -11,7 +11,7 @@
   * [El tema](https://github.com/Alfedi/.emacs.d#el-tema)
 * Cosas usables en plan bien
   * [Windmove](https://github.com/Alfedi/.emacs.d#windmove)
-  * [Helm](https://github.com/Alfedi/.emacs.d#ido)
+  * [Helm](https://github.com/Alfedi/.emacs.d#helm)
   * [Auto-complete](https://github.com/Alfedi/.emacs.d#autocomplete)
   * [Company](https://github.com/Alfedi/.emacs.d#company)
   * [Varios básicos](https://github.com/Alfedi/.emacs.d#varios-básicos)
