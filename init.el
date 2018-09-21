@@ -1,4 +1,3 @@
-
 ;; Toda la mierda va a ir aquí, maldita configuración custom :(
 (setq custom-file "~/.emacs.d/.emacs-custom.el")
 ;; Comprobación de paquetes lo primero. Nos conectamos tanto a melpa como a melpa-stable
@@ -17,7 +16,10 @@
   (package-install 'use-package))
 (eval-when-compile (require 'use-package))
 ;; Es el momento de hacerlo bonito
-;;(set-default-font "scientifica")
+(add-to-list 'default-frame-alist '(font . "Hack"))
+(set-face-attribute 'default nil :family "Hack")
+(set-default-font "Hack 11")
+
 ;;(set-face-attribute 'default nil :height 168)
 (tooltip-mode -1)
 (tool-bar-mode -1)
@@ -30,9 +32,6 @@
 (setq ring-bell-function 'ignore)
 ;;(shell-command-to-string "echo -n $(date +%k:%M--%m-%d)")
 (display-battery-mode 1)
-(electric-pair-mode 1)
-(show-paren-mode 1)
-(setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 (use-package rainbow-delimiters
   :ensure t
   :init
@@ -67,7 +66,8 @@
   :config (require 'helm-config)
   :bind (("C-x C-f" . helm-find-files)
 	 ("M-x" . helm-M-x)))
-
+(use-package ac-helm
+  :ensure t)
 ;;(use-package auto-complete
 ;;  :ensure t
 ;;  :config (ac-config-default))
@@ -76,6 +76,11 @@
   :ensure t
   :init
   :config (add-hook 'after-init-hook 'global-company-mode))
+
+;; Varios Básicos
+(electric-pair-mode 1)
+(show-paren-mode 1)
+(setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
 
 ;; Juegos :D
 (use-package tetris
