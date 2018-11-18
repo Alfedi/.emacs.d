@@ -91,8 +91,7 @@
 
 (use-package neotree
   :ensure t
-  :bind (("C-x n" . neotree-toggle))
-  )
+  :bind (("C-x n" . neotree-toggle)))
 
 (use-package undo-tree
   :ensure t
@@ -103,5 +102,8 @@
   :bind ("C-z" . zone-rainbow))
 
 (use-package magit
-  :ensure t)
+  :ensure t
+  :bind ("C-x g" . magit-status))
 
+(use-package multi-term
+  :ensure t)
