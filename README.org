@@ -185,12 +185,38 @@
     :bind ("C-x g" . magit-status))
     #+END_SRC
 
-
 *** Multi-term
     A terminal on emacs
     #+BEGIN_SRC elisp
     (use-package multi-term
     :ensure t)
+    #+END_SRC
+
+*** Notes
+    Copied from [[https://github.com/Ironjanowar][@Ironjanowar]]. Use to take quick notes.
+    #+BEGIN_SRC elisp
+    (defun new-scratch-buffer-new-window ()
+    "Create a new scratch buffer in a
+    new window. I generally take a lot of notes
+    in different topics. For each new topic hit
+    C-c C-s and start taking your notes.
+    Most of these notes don't need to be
+    saved but are used like quick post it
+    notes."
+    (interactive)
+    (let (($buf (generate-new-buffer "notes")))
+      (split-window-right)
+      (other-window 1)
+      (balance-windows)
+      (switch-to-buffer $buf)
+      (org-mode)
+      (insert "# Notes\n\n")
+      $buf))
+
+    (global-set-key
+      (kbd "C-c C-n")
+      'new-scratch-buffer-new-window)
+    (provide 'open-notes)
     #+END_SRC
 
 

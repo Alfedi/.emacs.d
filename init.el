@@ -59,15 +59,16 @@
 ;; Thanks to @Ironjanowar for helm config
 (use-package helm
   :ensure t
-  :init (helm-mode 1)
+  :init (helm-mode)
   :config (require 'helm-config
 	   (setq helm-split-window-in-side-p t
 		 helm-buffers-fuzzy-matching t 
 		 helm-recentf-fuzzy-match t
-		 helm-move-to-line-cycle-in-source t)
-	   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action))
-  :bind (("C-x C-f" . helm-find-files)
-	 ("M-x" . helm-M-x)
+		 helm-move-to-line-cycle-in-source t
+		 helm-M-x-fuzzy-match)
+	   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+	   )
+  :bind (("C-x C-f" . helm-find-files)	 ("M-x" . helm-M-x)
 	 ("C-x b" . helm-mini)
 	 ("C-x C-b" . helm-buffers-list)
 	 ("C-c g" . helm-google-suggest)))
@@ -107,3 +108,26 @@
 
 (use-package multi-term
   :ensure t)
+
+;; Copied from @Ironjanowar
+(defun new-scratch-buffer-new-window ()
+  "Create a new scratch buffer in a
+  new window. I generally take a lot of notes
+  in different topics. For each new topic hit
+  C-c C-s and start taking your notes.
+  Most of these notes don't need to be
+  saved but are used like quick post it
+  notes."
+  (interactive)
+  (let (($buf (generate-new-buffer "notes")))
+    (split-window-right)
+    (other-window 1)
+    (balance-windows)
+    (switch-to-buffer $buf)
+    (org-mode)
+    (insert "# Notes\n\n")
+    $buf))
+(global-set-key
+ (kbd "C-c C-n")
+ 'new-scratch-buffer-new-window)
+(provide 'open-notes)
