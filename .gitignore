@@ -10,3 +10,5 @@ emojis/
 meghanada/
 .emacs-custom*
 games/
+url/
+*.data
