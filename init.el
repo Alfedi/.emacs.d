@@ -65,13 +65,13 @@
 		 helm-buffers-fuzzy-matching t 
 		 helm-recentf-fuzzy-match t
 		 helm-move-to-line-cycle-in-source t
-		 helm-M-x-fuzzy-match)
-	   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
-	   )
+		 helm-M-x-fuzzy-match))
   :bind (("C-x C-f" . helm-find-files)	 ("M-x" . helm-M-x)
 	 ("C-x b" . helm-mini)
 	 ("C-x C-b" . helm-buffers-list)
 	 ("C-c g" . helm-google-suggest)))
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 
 (use-package typing
   :ensure t)
