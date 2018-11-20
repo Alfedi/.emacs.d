@@ -45,9 +45,9 @@
   :config (doom-themes-org-config)
   (doom-themes-neotree-config))
 
-(add-to-list 'default-frame-alist '(font . "Hack 10"))
-(set-face-attribute 'default nil :family "Hack 10")
-(set-default-font "Hack 10")
+(add-to-list 'default-frame-alist '(font . "Hack 13"))
+(set-face-attribute 'default nil :family "Hack 13")
+(set-default-font "Hack 13")
 
 (use-package windmove
   :ensure t
@@ -109,6 +109,9 @@
 (use-package multi-term
   :ensure t)
 
+(use-package sudo-edit
+  :ensure t)
+
 ;; Copied from @Ironjanowar
 (defun new-scratch-buffer-new-window ()
   "Create a new scratch buffer in a
@@ -131,3 +134,15 @@
  (kbd "C-c C-n")
  'new-scratch-buffer-new-window)
 (provide 'open-notes)
+
+;; Indent Fucking Whole Buffer (by github.com/skgsergio)
+(defun iwb ()
+  "Indent whole buffer"
+  (interactive)
+  (delete-trailing-whitespace)
+  (indent-region (point-min) (point-max) nil)
+  (untabify (point-min) (point-max))
+  (message "Indent buffer: Done.")
+  )
+
+(global-set-key "\M-i" 'iwb)

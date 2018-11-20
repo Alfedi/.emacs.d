@@ -20,6 +20,9 @@
      - [[https://github.com/Alfedi/.emacs.d#Zone-rainbow][Zone-rainbow]]
      - [[https://github.com/Alfedi/.emacs.d#Magit][Magit]]
      - [[https://github.com/Alfedi/.emacs.d#Multi-term][Multi-term]]
+     - [[https://github.com/Alfedi/.emacs.d#Sudo-edit][Sudo-edit]]
+     - [[https://github.com/Alfedi/.emacs.d#Notes][Notes]]
+     - [[https://github.com/Alfedi/.emacs.d#IFWB][IFWB]]
 
 ** Packages
 *** Melpa
@@ -219,4 +222,19 @@
     (provide 'open-notes)
     #+END_SRC
 
+*** IFWB
+    By [[https://github.com/skgsergio][@skgsergio]]
+    #+BEGIN_SRC elisp
+    ;; Indent Fucking Whole Buffer (by github.com/skgsergio)
+    (defun iwb ()
+      "Indent whole buffer"
+      (interactive)
+      (delete-trailing-whitespace)
+      (indent-region (point-min) (point-max) nil)
+      (untabify (point-min) (point-max))
+      (message "Indent buffer: Done.")
+      )
+
+    (global-set-key "\M-i" 'iwb)
+    #+END_SRC
 
