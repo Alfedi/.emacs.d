@@ -25,7 +25,7 @@
 (show-paren-mode 1)
 (setq custom-file "~/.emacs.d/.emacs-custom.el")
 (setq make-backup-files nil)
-(setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
+(setq auto-save-default nil)
 
 (use-package rainbow-delimiters
   :ensure t
@@ -52,24 +52,24 @@
 (use-package windmove
   :ensure t
   :bind (("C-<up>" . windmove-up)
-	 ("C-<down>" . windmove-down)
-	 ("C-<right>" . windmove-right)
-	 ("C-<left>" . windmove-left)))
+         ("C-<down>" . windmove-down)
+         ("C-<right>" . windmove-right)
+         ("C-<left>" . windmove-left)))
 
 ;; Thanks to @Ironjanowar for helm config
 (use-package helm
   :ensure t
   :init (helm-mode)
   :config (require 'helm-config
-	   (setq helm-split-window-in-side-p t
-		 helm-buffers-fuzzy-matching t 
-		 helm-recentf-fuzzy-match t
-		 helm-move-to-line-cycle-in-source t
-		 helm-M-x-fuzzy-match))
-  :bind (("C-x C-f" . helm-find-files)	 ("M-x" . helm-M-x)
-	 ("C-x b" . helm-mini)
-	 ("C-x C-b" . helm-buffers-list)
-	 ("C-c g" . helm-google-suggest)))
+                   (setq helm-split-window-in-side-p t
+                         helm-buffers-fuzzy-matching t
+                         helm-recentf-fuzzy-match t
+                         helm-move-to-line-cycle-in-source t
+                         helm-M-x-fuzzy-match))
+  :bind (("C-x C-f" . helm-find-files)   ("M-x" . helm-M-x)
+         ("C-x b" . helm-mini)
+         ("C-x C-b" . helm-buffers-list)
+         ("C-c g" . helm-google-suggest)))
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 
@@ -79,9 +79,9 @@
 (use-package spotify
   :ensure t
   :bind(("C-S-s p" . spotify-playpause)
-	("C-S-s n" . spotify-next)
-	("C-S-s b" . spotify-previous)
-	("C-S-s c" . spotify-current)))
+        ("C-S-s n" . spotify-next)
+        ("C-S-s b" . spotify-previous)
+        ("C-S-s c" . spotify-current)))
 
 (use-package golden-ratio
   :ensure t
@@ -131,7 +131,7 @@
     (insert "# Notes\n\n")
     $buf))
 (global-set-key
- (kbd "C-c C-n")
+ (kbd "C-c n")
  'new-scratch-buffer-new-window)
 (provide 'open-notes)
 
@@ -146,3 +146,16 @@
   )
 
 (global-set-key "\M-i" 'iwb)
+
+;; Yasnippets
+(use-package yasnippet
+  :ensure t
+  :init (yas-global-mode t)
+  :bind ("C-<tab>" . yas-expand))
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+
+(use-package company
+  :ensure t
+  :init (global-company-mode)
+  :bind ("C-<tab>" . company-yasnippet))
