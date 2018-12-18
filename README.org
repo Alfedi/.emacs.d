@@ -244,16 +244,16 @@
     Emacs package which allows you to use abbreviations for some programming languages functions and also you can create your own.
     #+BEGIN_SRC elisp
      (use-package company
-  :ensure t
-  :init (global-company-mode)
-  :bind ("C-<tab>" . company-yasnippet))
+       :ensure t
+       :init (global-company-mode)
+       :bind ("C-<tab>" . company-yasnippet))
     #+END_SRC
 
 *** Company
     Auto-completion. I especially use it for yasnippets but it's very useful.
     #+BEGIN_SRC elisp
     (use-package company
-  :ensure t
-  :init (global-company-mode)
-  :bind ("C-<tab>" . company-yasnippet))
+      :ensure t
+      :init (global-company-mode)
+      :bind ("C-<tab>" . company-yasnippet))
     #+END_SRC
