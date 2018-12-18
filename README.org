@@ -23,6 +23,8 @@
      - [[https://github.com/Alfedi/.emacs.d#Sudo-edit][Sudo-edit]]
      - [[https://github.com/Alfedi/.emacs.d#Notes][Notes]]
      - [[https://github.com/Alfedi/.emacs.d#IFWB][IFWB]]
+     - [[https://github.com/Alfedi/.emacs.d#Yasnippets][Yasnippets]]
+     - [[https://github.com/Alfedi/.emacs.d#Company][Company]]
 
 ** Packages
 *** Melpa
@@ -32,7 +34,7 @@
       (require 'package)
       (add-to-list
         'package-archives
-	'("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+        '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
       (add-to-list
         'package-archives
         '("melpa" . "http://melpa.org/packages/"))
@@ -47,11 +49,11 @@
       (package-install 'use-package))
     (eval-when-compile (require 'use-package))
     #+END_SRC
-    
+
 ** Personalization
 *** Cleaning
-   Several changes to clean inteface, display some stuff on modeline and make custom configuration and emacs backups non disturbing.
-   #+BEGIN_SRC elisp
+    Several changes to clean inteface, display some stuff on modeline and make custom configuration and emacs backups non disturbing.
+    #+BEGIN_SRC elisp
    (tooltip-mode -1)
    (tool-bar-mode -1)
    (set-window-fringes nil 0 0)
@@ -65,7 +67,7 @@
    (setq custom-file "~/.emacs.d/.emacs-custom.el")
    (setq make-backup-files nil)
    (setq backup-directory-alist '(("" . "~/.emacs.d/emacs-backup")))
-   #+END_SRC
+    #+END_SRC
 
 *** Rainbow-delimiters
     Color most of delimiters to know where they open and close.
@@ -109,8 +111,8 @@
     :ensure t
     :bind (("C-<up>" . windmove-up)
            ("C-<down>" . windmove-down)
-	   ("C-<right>" . windmove-right)
-	   ("C-<left>" . windmove-left)))
+           ("C-<right>" . windmove-right)
+           ("C-<left>" . windmove-left)))
     #+END_SRC
 
 *** Helm
@@ -121,18 +123,18 @@
     :ensure t
     :init (helm-mode 1)
     :config (require 'helm-config
-	     (setq helm-split-window-in-side-p t
-	           helm-buffers-fuzzy-matching t 
-		   helm-recentf-fuzzy-match t
-		   helm-move-to-line-cycle-in-source t)
-	     (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action))
+             (setq helm-split-window-in-side-p t
+                   helm-buffers-fuzzy-matching t
+                   helm-recentf-fuzzy-match t
+                   helm-move-to-line-cycle-in-source t)
+             (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action))
     :bind (("C-x C-f" . helm-find-files)
            ("M-x" . helm-M-x)
-	   ("C-x b" . helm-mini)
-	   ("C-x C-b" . helm-buffers-list)
-	   ("C-c g" . helm-google-suggest)))
+           ("C-x b" . helm-mini)
+           ("C-x C-b" . helm-buffers-list)
+           ("C-c g" . helm-google-suggest)))
     #+END_SRC
-    
+
 ** Accessories
 *** Spotify
     Spotify control from emacs.
@@ -141,8 +143,8 @@
     :ensure t
     :bind(("C-S-s p" . spotify-playpause)
           ("C-S-s n" . spotify-next)
-	  ("C-S-s b" . spotify-previous)
-	  ("C-S-s c" . spotify-current)))
+          ("C-S-s b" . spotify-previous)
+          ("C-S-s c" . spotify-current)))
     #+END_SRC
 
 *** Golden-ratio
@@ -158,7 +160,7 @@
     #+BEGIN_SRC elisp
     (use-package all-the-icons
     :ensure t)
-  
+
     (use-package neotree
     :ensure t
     :bind (("C-x n" . neotree-toggle)))
@@ -238,3 +240,20 @@
     (global-set-key "\M-i" 'iwb)
     #+END_SRC
 
+*** Yasnippets
+    Emacs package which allows you to use abbreviations for some programming languages functions and also you can create your own.
+    #+BEGIN_SRC elisp
+     (use-package company
+  :ensure t
+  :init (global-company-mode)
+  :bind ("C-<tab>" . company-yasnippet))
+    #+END_SRC
+
+*** Company
+    Auto-completion. I especially use it for yasnippets but it's very useful.
+    #+BEGIN_SRC elisp
+    (use-package company
+  :ensure t
+  :init (global-company-mode)
+  :bind ("C-<tab>" . company-yasnippet))
+    #+END_SRC

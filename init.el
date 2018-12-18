@@ -41,13 +41,13 @@
 
 (use-package doom-themes
   :ensure t
-  :init (load-theme 'doom-molokai t)
+  :init (load-theme 'doom-Iosvkem t)
   :config (doom-themes-org-config)
   (doom-themes-neotree-config))
 
-(add-to-list 'default-frame-alist '(font . "Hack 13"))
-(set-face-attribute 'default nil :family "Hack 13")
-(set-default-font "Hack 13")
+(add-to-list 'default-frame-alist '(font . "Hack 10"))
+(set-face-attribute 'default nil :family "Hack 10")
+(set-default-font "Hack 10")
 
 (use-package windmove
   :ensure t
