@@ -19,8 +19,6 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (setq inhibit-startup-screen t)
-(display-time-mode 1)
-(display-battery-mode 1)
 (electric-pair-mode 1)
 (show-paren-mode 1)
 (setq custom-file "~/.emacs.d/.emacs-custom.el")
@@ -32,22 +30,33 @@
   :init
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode 1))
 
-(use-package telephone-line
-  :ensure t)
-(setq telephone-line-subseparator-faces '())
-(setq telephone-line-height 24
-      telephone-line-evil-use-short-tag t)
-(telephone-line-mode t)
+;; Mode line
+(use-package doom-modeline
+  :ensure t
+  :defer t
+  :hook (after-init . doom-modeline-init))
 
+(setq doom-modeline-height 10)
+(setq doom-modeline-buffer-file-name-style 'truncate-from-project)
+(setq doom-modeline-icon t)
+(setq doom-modeline-major-mode-icon t)
+(setq doom-modeline-minor-modes nil)
+(setq doom-modeline-lsp nil)
+(setq doom-modeline-github t)
+(setq doom-modeline-github-interval (* 30 60))
+(setq find-file-visit-truename t)
+
+;; Themes
 (use-package doom-themes
   :ensure t
   :init (load-theme 'doom-Iosvkem t)
   :config (doom-themes-org-config)
   (doom-themes-neotree-config))
 
-(add-to-list 'default-frame-alist '(font . "Hack 10"))
-(set-face-attribute 'default nil :family "Hack 10")
-(set-default-font "Hack 10")
+
+(add-to-list 'default-frame-alist '(font . "Hack 13"))
+(set-face-attribute 'default nil :family "Hack 13")
+(set-default-font "Hack 13")
 
 (use-package windmove
   :ensure t
@@ -59,14 +68,15 @@
 ;; Thanks to @Ironjanowar for helm config
 (use-package helm
   :ensure t
-  :init (helm-mode)
+  :init (helm-mode 1)
   :config (require 'helm-config
                    (setq helm-split-window-in-side-p t
                          helm-buffers-fuzzy-matching t
                          helm-recentf-fuzzy-match t
                          helm-move-to-line-cycle-in-source t
                          helm-M-x-fuzzy-match))
-  :bind (("C-x C-f" . helm-find-files)   ("M-x" . helm-M-x)
+  :bind (("C-x C-f" . helm-find-files)
+         ("M-x" . helm-M-x)
          ("C-x b" . helm-mini)
          ("C-x C-b" . helm-buffers-list)
          ("C-c g" . helm-google-suggest)))
