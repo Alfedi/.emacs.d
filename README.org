@@ -23,9 +23,10 @@
      - [[https://github.com/Alfedi/.emacs.d#Sudo-edit][Sudo-edit]]
      - [[https://github.com/Alfedi/.emacs.d#Notes][Notes]]
      - [[https://github.com/Alfedi/.emacs.d#IFWB][IFWB]]
-     - [[https://github.com/Alfedi/.emacs.d#Yasnippets][Yasnippets]]
      - [[https://github.com/Alfedi/.emacs.d#Company][Company]]
-
+   - Programming
+     - [[https://github.com/Alfedi/.emacs.d#Yasnippets][Yasnippets]]
+     - [[http://github.com/Alfedi/.emacs.d#Elixir][Elixir-mode]]
 ** Packages
 *** Melpa
     Where we get our packages.
@@ -247,15 +248,6 @@
     (global-set-key "\M-i" 'iwb)
     #+END_SRC
 
-*** Yasnippets
-    Emacs package which allows you to use abbreviations for some programming languages functions and also you can create your own.
-    #+BEGIN_SRC elisp
-     (use-package company
-       :ensure t
-       :init (global-company-mode)
-       :bind ("C-<tab>" . company-yasnippet))
-    #+END_SRC
-
 *** Company
     Auto-completion. I especially use it for yasnippets but it's very useful.
     #+BEGIN_SRC elisp
@@ -264,3 +256,25 @@
       :init (global-company-mode)
       :bind ("C-<tab>" . company-yasnippet))
     #+END_SRC
+** Programming
+*** Yasnippets
+    Emacs package which allows you to use abbreviations for some programming languages functions and also you can create your own.
+    #+BEGIN_SRC elisp
+    (use-package yasnippet
+      :ensure t
+      :init (yas-global-mode t)
+      :bind ("C-<tab>" . yas-expand))
+      (put 'downcase-region 'disabled nil)
+      (put 'upcase-region 'disabled nil)
+
+    (use-package yanippet-snippets
+      :ensure t)
+    #+END_SRC
+
+*** Elixir
+    Emacs mode to do elixir
+    #+BEGIN_SRC elisp
+    (use-package elixir-mode
+      :ensure t)
+    #+END_SRC
+
