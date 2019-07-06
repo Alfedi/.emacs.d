@@ -26,15 +26,15 @@
 (setq auto-save-default nil)
 
 (use-package rainbow-delimiters
-  :ensure t
-  :init
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode 1))
+	     :ensure t
+	     :init
+	     (add-hook 'prog-mode-hook 'rainbow-delimiters-mode 1))
 
 ;; Mode line
 (use-package doom-modeline
-  :ensure t
-  :defer t
-  :hook (after-init . doom-modeline-init))
+	     :ensure t
+	     :defer t
+	     :hook (after-init . doom-modeline-init))
 
 (setq doom-modeline-height 10)
 (setq doom-modeline-buffer-file-name-style 'truncate-from-project)
@@ -48,10 +48,10 @@
 
 ;; Themes
 (use-package doom-themes
-  :ensure t
-  :init (load-theme 'doom-Iosvkem t)
-  :config (doom-themes-org-config)
-  (doom-themes-neotree-config))
+	     :ensure t
+	     :init (load-theme 'doom-Iosvkem t)
+	     :config (doom-themes-org-config)
+	             (doom-themes-neotree-config))
 
 
 (add-to-list 'default-frame-alist '(font . "Hack 10"))
@@ -59,68 +59,68 @@
 (set-default-font "Hack 10")
 
 (use-package windmove
-  :ensure t
-  :bind (("C-<up>" . windmove-up)
-         ("C-<down>" . windmove-down)
-         ("C-<right>" . windmove-right)
-         ("C-<left>" . windmove-left)))
+	     :ensure t
+	     :bind (("C-<up>" . windmove-up)
+		    ("C-<down>" . windmove-down)
+		    ("C-<right>" . windmove-right)
+		    ("C-<left>" . windmove-left)))
 
 ;; Thanks to @Ironjanowar for helm config
 (use-package helm
-  :ensure t
-  :init (helm-mode 1)
-  :config (require 'helm-config
-                   (setq helm-split-window-in-side-p t
-                         helm-buffers-fuzzy-matching t
-                         helm-recentf-fuzzy-match t
-                         helm-move-to-line-cycle-in-source t
-                         helm-M-x-fuzzy-match))
-  :bind (("C-x C-f" . helm-find-files)
-         ("M-x" . helm-M-x)
-         ("C-x b" . helm-mini)
-         ("C-x C-b" . helm-buffers-list)
-         ("C-c g" . helm-google-suggest)))
+	     :ensure t
+	     :init (helm-mode 1)
+	     :config (require 'helm-config
+			      (setq helm-split-window-in-side-p t
+				    helm-buffers-fuzzy-matching t
+				    helm-recentf-fuzzy-match t
+				    helm-move-to-line-cycle-in-source t
+				    helm-M-x-fuzzy-match))
+	     :bind (("C-x C-f" . helm-find-files)
+		    ("M-x" . helm-M-x)
+		    ("C-x b" . helm-mini)
+		    ("C-x C-b" . helm-buffers-list)
+		    ("C-c g" . helm-google-suggest)))
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 
 (use-package typing
-  :ensure t)
+	     :ensure t)
 
 (use-package spotify
-  :ensure t
-  :bind(("C-S-s p" . spotify-playpause)
-        ("C-S-s n" . spotify-next)
-        ("C-S-s b" . spotify-previous)
-        ("C-S-s c" . spotify-current)))
+	     :ensure t
+	     :bind(("C-S-s p" . spotify-playpause)
+		   ("C-S-s n" . spotify-next)
+		   ("C-S-s b" . spotify-previous)
+		   ("C-S-s c" . spotify-current)))
 
 (use-package golden-ratio
-  :ensure t
-  :config (golden-ratio-mode t))
+	     :ensure t
+	     :config (golden-ratio-mode t))
 
 (use-package all-the-icons
-  :ensure t)
+	     :ensure t)
 
 (use-package neotree
-  :ensure t
-  :bind (("C-x n" . neotree-toggle)))
+	     :ensure t
+	     :bind ("C-x n" . neotree-toggle))
 
 (use-package undo-tree
-  :ensure t
-  :config (global-undo-tree-mode t))
+	     :ensure t
+	     :config (global-undo-tree-mode t))
 
 (use-package zone-rainbow
-  :ensure t
-  :bind ("C-z" . zone-rainbow))
+	     :ensure t
+	     :bind ("C-z" . zone-rainbow))
 
 (use-package magit
-  :ensure t
-  :bind ("C-x g" . magit-status))
+	     :ensure t
+	     :bind ("C-x g" . magit-status))
 
 (use-package multi-term
-  :ensure t)
+	     :ensure t)
 
 (use-package sudo-edit
-  :ensure t)
+	     :ensure t)
 
 ;; Copied from @Ironjanowar
 (defun new-scratch-buffer-new-window ()
@@ -159,19 +159,19 @@
 
 ;; Yasnippets
 (use-package yasnippet
-  :ensure t
-  :init (yas-global-mode t)
-  :bind ("C-<tab>" . yas-expand))
+	     :ensure t
+	     :init (yas-global-mode t)
+	     :bind ("C-<tab>" . yas-expand))
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
-(use-package yanippet-snippets
-  :ensure t)
+(use-package yasnippet-snippets
+	     :ensure t)
 
 (use-package company
-  :ensure t
-  :init (global-company-mode)
-  :bind ("C-<tab>" . company-yasnippet))
+	     :ensure t
+	     :init (global-company-mode)
+	     :bind ("C-<tab>" . company-yasnippet))
 
 (use-package elixir-mode
-  :ensure t)
+	     :ensure t)
