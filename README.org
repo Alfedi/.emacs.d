@@ -23,8 +23,8 @@
      - [[https://github.com/Alfedi/.emacs.d#Sudo-edit][Sudo-edit]]
      - [[https://github.com/Alfedi/.emacs.d#Notes][Notes]]
      - [[https://github.com/Alfedi/.emacs.d#IFWB][IFWB]]
+     - [[https://github.com/Alfedi/.emacs.d#Yasnippets][Yasnippets]]
      - [[https://github.com/Alfedi/.emacs.d#Company][Company]]
-<<<<<<< HEAD
      - [[https://github.com/Alfedi/.emacs.d#which-key][Which-key]]
      - [[https://github.com/Alfedi/.emacs.d#flycheck][Flycheck]]
    - Programming
@@ -34,15 +34,9 @@
        - [[https://github.com/Alfedi/.emacs.d#helm-lsp][Helm-lsp]]
      - [[https://github.com/Alfedi/.emacs.d#projectile][Projectile]]
        - [[https://github.com/Alfedi/.emacs.d#helm-projectile][Helm-projectile]]
-** packages
-*** melpa
-=======
-   - Programming
-     - [[https://github.com/Alfedi/.emacs.d#Yasnippets][Yasnippets]]
-     - [[http://github.com/Alfedi/.emacs.d#Elixir][Elixir-mode]]
+
 ** Packages
 *** Melpa
->>>>>>> c882703f696252cc46e16215a82e6d8f011cc6d1
     Where we get our packages.
     #+begin_src elisp
     (when (>= emacs-major-version 24)
@@ -56,7 +50,7 @@
       (package-initialize))
     #+end_src
 
-*** use-package
+*** Use-package
     This black magic package allowed us to manage packages easily.
     #+begin_src elisp
     (unless (featurep 'use-package)
@@ -65,8 +59,8 @@
     (eval-when-compile (require 'use-package))
     #+end_src
 
-** customization
-*** cleaning
+** Customization
+*** Cleaning
     Several changes to clean inteface, display some stuff on modeline and make custom configuration and emacs backups non disturbing.
     #+begin_src elisp
     (tooltip-mode -1)
@@ -82,7 +76,7 @@
     (setq auto-save-default nil)
     #+end_src
 
-*** rainbow-delimiters
+*** Rainbow-delimiters
     Color most of delimiters to know where they open and close.
     #+begin_src elisp
     (use-package rainbow-delimiters
@@ -91,7 +85,7 @@
       (add-hook 'prog-mode-hook 'rainbow-delimiters-mode 1))
     #+end_src
 
-*** modeline
+*** Modeline
     New modeline, it's perfect for doom-themes
     #+begin_src elisp
     (use-package doom-modeline
@@ -111,8 +105,8 @@
     (setq find-file-visit-truename t)
     #+end_src
 
-*** theme
-    I fall in love with doom-themes, no more explain needed. i also like the hack font.
+*** Theme
+    I fall in love with doom-themes, no more explain needed.
     #+begin_src elisp
     (use-package doom-themes
     :ensure t
@@ -125,8 +119,8 @@
     (set-frame-font "Input Mono 10")
     #+end_src
 
-** move
-*** windmove
+** Move
+*** Windmove
     This allowed to move between buffers using ~c-<arrow keys>~.
     #+begin_src elisp
     (use-package windmove
@@ -137,7 +131,7 @@
            ("c-<left>" . windmove-left)))
     #+end_src
 
-*** helm
+*** Helm
     Incredible framework for emacs.
     #+begin_src elisp
     ;; thanks to @ironjanowar for helm config
@@ -157,8 +151,8 @@
            ("c-c g" . helm-google-suggest)))
     #+end_src
 
-** accessories
-*** spotify
+** Accessories
+*** Spotify
     Spotify control from emacs.
     #+begin_src elisp
     (use-package spotify
@@ -169,7 +163,7 @@
           ("c-s-s c" . spotify-current)))
     #+end_src
 
-*** golden-ratio
+*** Golden-ratio
     Reduce the size of the buffers that you don't use.
     #+begin_src elisp
     (use-package golden-ratio
@@ -177,7 +171,7 @@
     :config (golden-ratio-mode t))
     #+end_src
 
-*** neotree
+*** Neotree
     Cool directory tree visualization. To use it you need ~all-the-icons~ package and execute ~m-x all-the-icons-install-fonts ret~. With ~neo-smart-open~ and [[https://github.com/Alfedi/.emacs.d#projectile][projectile]] the tree is automatically updated.
     #+begin_src elisp
     (use-package all-the-icons
@@ -190,7 +184,7 @@
             (setq neo-smart-open t))
     #+end_src
 
-*** undo-tree
+*** Undo-tree
     Another tree to know what i did before deleting that line.
     #+begin_src elisp
     (use-package undo-tree
@@ -198,7 +192,7 @@
     :config (global-undo-tree-mode t))
     #+end_src
 
-*** magit
+*** Magit
     Git on emacs!
     #+begin_src elisp
     (use-package magit
@@ -206,7 +200,7 @@
     :bind ("c-x g" . magit-status))
     #+end_src
 
-*** notes
+*** Notes
     Copied from [[https://github.com/ironjanowar][@ironjanowar]]. use to take quick notes.
     #+begin_src elisp
     (defun new-scratch-buffer-new-window ()
@@ -249,31 +243,30 @@
     (global-set-key "\m-i" 'iwb)
     #+end_src
 
-<<<<<<< HEAD
-*** yasnippets
+*** Yasnippets
     Emacs package which allows you to use abbreviations for some programming languages functions and also you can create your own.
-    #+begin_src elisp
-     (use-package company
-       :ensure t
-       :init (global-company-mode)
-       :bind ("c-<tab>" . company-yasnippet))
-    #+end_src
+    #+BEGIN_SRC elisp
+    (use-package yasnippet
+      :ensure t
+      :init (yas-global-mode t)
+      :bind ("C-<tab>" . yas-expand))
+      (put 'downcase-region 'disabled nil)
+      (put 'upcase-region 'disabled nil)
 
-*** company
+    (use-package yanippet-snippets
+      :ensure t)
+    #+END_SRC
+
+*** Company
     Auto-completion. I use it with yasnippets.
     #+begin_src elisp
-=======
-*** Company
-    Auto-completion. I especially use it for yasnippets but it's very useful.
-    #+BEGIN_SRC elisp
->>>>>>> c882703f696252cc46e16215a82e6d8f011cc6d1
     (use-package company
       :ensure t
       :init (global-company-mode)
       :bind ("c-<tab>" . company-yasnippet))
     #+end_src
 
-*** which-key
+*** Which-key
     If you forget some key binding ~which-key~ is your friend.
     #+BEGIN_SRC elisp
      (use-package which-key
@@ -281,7 +274,7 @@
      :config (which-key-mode))
     #+END_SRC
 
-*** flycheck
+*** Flycheck
     On the fly syntax checking extension. Also extension for Elixir lang.
     #+BEGIN_SRC elisp
      (use-package flycheck
@@ -292,8 +285,8 @@
      :ensure t)
     #+END_SRC
 
-** programming
-*** elixir-mode
+** Programming
+*** Elixir-mode
     The hook applies ~elixir-format~ after saving file.
     #+begin_src elisp
     (use-package elixir-mode
@@ -303,8 +296,8 @@
               (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
     #+end_src
 
-*** lsp
-**** lsp-mode
+*** LSP
+**** LSP-mode
      [[https://github.com/emacs-lsp/lsp-mode][Check out this wonderfull package]]. You need to download the language server in order to make this work. [[https://github.com/emacs-lsp/lsp-mode#supported-languages][Supported languages and their language servers]].
      #+begin_src elisp
      (use-package lsp-mode
@@ -316,8 +309,8 @@
      :commands lsp)
      #+end_src
 
-**** lsp-ui
-     user interface for lsp package, [[https://github.com/emacs-lsp/lsp-ui][check it out here]]. if you don't want to use ~sideline-mode~ just change the hook.
+**** LSP-ui
+     User interface for lsp package, [[https://github.com/emacs-lsp/lsp-ui][check it out here]]. if you don't want to use ~sideline-mode~ just change the hook.
      #+begin_src elisp
       (use-package lsp-ui
       :ensure t
@@ -329,7 +322,7 @@
       (add-hook 'prog-mode-hook 'lsp-ui-sideline-mode)
      #+END_SRC
 
-**** helm-lsp
+**** Helm-LSP
      Helm integration with LSP.
      #+BEGIN_SRC elisp
       (use-package helm-lsp
@@ -337,7 +330,7 @@
       :commands helm-lsp-workspace-symbol)
      #+END_SRC
 
-*** projectile
+*** Projectile
     Project management for emacs. [[https://github.com/bbatsov/projectile][Check out the repo here]].
     #+BEGIN_SRC elisp
      (use-package projectile
@@ -362,36 +355,13 @@
 
       (add-hook 'projectile-after-switch-project-hook 'open-terminal-in-workdir)
     #+END_SRC
-<<<<<<< HEAD
 
-**** helm-projectile
+**** Helm-projectile
      Helm integration for projectile.
      #+BEGIN_SRC elisp
       (use-package helm-projectile
       :ensure t
       :init (helm-projectile-on))
      #+END_SRC
-=======
-** Programming
-*** Yasnippets
-    Emacs package which allows you to use abbreviations for some programming languages functions and also you can create your own.
-    #+BEGIN_SRC elisp
-    (use-package yasnippet
-      :ensure t
-      :init (yas-global-mode t)
-      :bind ("C-<tab>" . yas-expand))
-      (put 'downcase-region 'disabled nil)
-      (put 'upcase-region 'disabled nil)
 
-    (use-package yanippet-snippets
-      :ensure t)
-    #+END_SRC
 
-*** Elixir
-    Emacs mode to do elixir
-    #+BEGIN_SRC elisp
-    (use-package elixir-mode
-      :ensure t)
-    #+END_SRC
-
->>>>>>> c882703f696252cc46e16215a82e6d8f011cc6d1
