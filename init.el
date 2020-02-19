@@ -34,7 +34,7 @@
 (use-package doom-modeline
   :ensure t
   :defer t
-  :hook (after-init . doom-modeline-init))
+  :hook (after-init . doom-modeline-mode))
 
 (setq doom-modeline-height 10)
 (setq doom-modeline-buffer-file-name-style 'truncate-from-project)
@@ -49,14 +49,13 @@
 ;; Themes
 (use-package doom-themes
   :ensure t
-  :init (load-theme 'doom-Iosvkem t)
+  :init (load-theme 'doom-outrun-electric t)
   :config (doom-themes-org-config)
   (doom-themes-neotree-config))
 
-
-(add-to-list 'default-frame-alist '(font . "Hack 13"))
-(set-face-attribute 'default nil :family "Hack 13")
-(set-default-font "Hack 13")
+(add-to-list 'default-frame-alist '(font . "Input Mono 10"))
+(set-face-attribute 'default nil :family "Input Mono 10")
+(set-frame-font "Input Mono 10")
 
 (use-package windmove
   :ensure t
@@ -69,17 +68,20 @@
 (use-package helm
   :ensure t
   :init (helm-mode 1)
-  :config (require 'helm-config
-                   (setq helm-split-window-in-side-p t
-                         helm-buffers-fuzzy-matching t
-                         helm-recentf-fuzzy-match t
-                         helm-move-to-line-cycle-in-source t
-                         helm-M-x-fuzzy-match))
   :bind (("C-x C-f" . helm-find-files)
          ("M-x" . helm-M-x)
          ("C-x b" . helm-mini)
-         ("C-x C-b" . helm-buffers-list)
-         ("C-c g" . helm-google-suggest)))
+         ("C-x C-b" . helm-buffers-list)))
+
+(require 'helm-config)
+(setq helm-split-window-inside-p t
+      helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match t
+      helm-move-to-line-cycle-in-source t
+      helm-ff-search-library-in-sexp t
+      helm-scroll-amount 8
+      helm-ff-file-name-history-use-recentf t
+      helm-M-x-fuzzy-match t)
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 
@@ -102,25 +104,17 @@
 
 (use-package neotree
   :ensure t
-  :bind (("C-x n" . neotree-toggle)))
+  :bind (("C-x n" . neotree-toggle))
+  :config (setq-default neo-show-hidden-files t)
+          (setq neo-smart-open t))
 
 (use-package undo-tree
   :ensure t
   :config (global-undo-tree-mode t))
 
-(use-package zone-rainbow
-  :ensure t
-  :bind ("C-z" . zone-rainbow))
-
 (use-package magit
   :ensure t
   :bind ("C-x g" . magit-status))
-
-(use-package multi-term
-  :ensure t)
-
-(use-package sudo-edit
-  :ensure t)
 
 ;; Copied from @Ironjanowar
 (defun new-scratch-buffer-new-window ()
@@ -147,13 +141,12 @@
 
 ;; Indent Fucking Whole Buffer (by github.com/skgsergio)
 (defun iwb ()
-  "Indent whole buffer"
+  "Indent whole buffer."
   (interactive)
   (delete-trailing-whitespace)
   (indent-region (point-min) (point-max) nil)
   (untabify (point-min) (point-max))
-  (message "Indent buffer: Done.")
-  )
+  (message "Indent buffer: Done."))
 
 (global-set-key "\M-i" 'iwb)
 
@@ -169,3 +162,81 @@
   :ensure t
   :init (global-company-mode)
   :bind ("C-<tab>" . company-yasnippet))
+
+;; Programming
+(use-package elixir-mode
+  :ensure t)
+;; Apply elixir-format after saving a file
+(add-hook 'elixir-mode-hook
+          (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
+
+(use-package alchemist
+  :ensure t)
+
+;; Ditaa support for org mode
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((ditaa . t))) ; this line activates ditaa
+
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (string= lang "ditaa")))  ; don't ask for ditaa
+(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
+;; lsp-mode
+(use-package lsp-mode
+  :ensure t
+  :init (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (python-mode . lsp) ;; pyls (Install with pip)
+	 (elixir-mode . lsp) ;; elixir-ls (Add language_server.sh to PATH)
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+(use-package lsp-ui
+  :ensure t
+  :bind ("C-c l i" . lsp-ui-imenu)
+  :init (lsp-ui-mode)
+  (lsp-ui-doc-mode)
+  (setq lsp-ui-doc-delay 1))
+
+(add-hook 'prog-mode-hook 'lsp-ui-sideline-mode)
+
+(use-package helm-lsp
+  :ensure t
+  :commands helm-lsp-workspace-symbol)
+
+(use-package which-key
+  :ensure t
+  :config (which-key-mode))
+
+;; Flycheck
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode t))
+
+(use-package flycheck-elixir
+  :ensure t)
+
+;; Projectile
+(use-package projectile
+  :ensure t
+  :bind ("C-c p" . projectile-command-map)
+  :init (projectile-mode)
+        (setq projectile-enable-caching t)
+	(setq projectile-indexing-method 'alien)
+	(setq projectile-sort-order 'recently-active))
+
+(defun open-terminal-in-workdir ()
+  "Function to open terminal in the project root."
+  (interactive)
+  (let ((workdir (if (projectile-project-root)
+                     (projectile-project-root)
+                   default-directory)))
+    (call-process-shell-command
+     (concat "guake -e " workdir) nil 0)))
+
+(add-hook 'projectile-after-switch-project-hook 'open-terminal-in-workdir)
+
+(use-package helm-projectile
+  :ensure t
+  :init (helm-projectile-on))

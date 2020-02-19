@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: new_document
+# key: document
+# --
+\documentclass[11pt, a4paper, titlepage]{$1}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\title{$2}
+\author{$3}
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble}
+\tableofcontents
+$0
+\end{document}

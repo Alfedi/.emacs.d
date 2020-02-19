@@ -14,3 +14,9 @@ url/
 *.data
 recentf
 image-dired/
+ex-fmt/
+hacker-typer/
+srecode-map.el
+transient/
+.lsp-session-v1
+projectile*
