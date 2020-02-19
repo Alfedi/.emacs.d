@@ -57,6 +57,7 @@
 (set-face-attribute 'default nil :family "Input Mono 10")
 (set-frame-font "Input Mono 10")
 
+
 (use-package windmove
   :ensure t
   :bind (("C-<up>" . windmove-up)
@@ -106,7 +107,7 @@
   :ensure t
   :bind (("C-x n" . neotree-toggle))
   :config (setq-default neo-show-hidden-files t)
-          (setq neo-smart-open t))
+  (setq neo-smart-open t))
 
 (use-package undo-tree
   :ensure t
@@ -158,6 +159,9 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
+(use-package yasnippet-snippets
+  :ensure t)
+
 (use-package company
   :ensure t
   :init (global-company-mode)
@@ -188,7 +192,7 @@
   :init (setq lsp-keymap-prefix "C-c l")
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (python-mode . lsp) ;; pyls (Install with pip)
-	 (elixir-mode . lsp) ;; elixir-ls (Add language_server.sh to PATH)
+         (elixir-mode . lsp) ;; elixir-ls (Add language_server.sh to PATH)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
@@ -222,9 +226,9 @@
   :ensure t
   :bind ("C-c p" . projectile-command-map)
   :init (projectile-mode)
-        (setq projectile-enable-caching t)
-	(setq projectile-indexing-method 'alien)
-	(setq projectile-sort-order 'recently-active))
+  (setq projectile-enable-caching t)
+  (setq projectile-indexing-method 'alien)
+  (setq projectile-sort-order 'recently-active))
 
 (defun open-terminal-in-workdir ()
   "Function to open terminal in the project root."
