@@ -28,6 +28,7 @@
      - [[https://github.com/Alfedi/.emacs.d#Company][Company]]
      - [[https://github.com/Alfedi/.emacs.d#which-key][Which-key]]
      - [[https://github.com/Alfedi/.emacs.d#flycheck][Flycheck]]
+     - [[https://github.com/Alfedi/.emacs.d#Calendar][Calendar]]
    - Programming
      - [[https://github.com/Alfedi/.emacs.d#Elixir-mode][Elixir-mode]]
      - [[https://github.com/alfedi/.emacs.d#lsp][Language Server Protocol]]
