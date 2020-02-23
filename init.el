@@ -41,10 +41,11 @@
 (setq doom-modeline-icon t)
 (setq doom-modeline-major-mode-icon t)
 (setq doom-modeline-minor-modes nil)
-(setq doom-modeline-lsp nil)
+(setq doom-modeline-lsp t)
 (setq doom-modeline-github t)
 (setq doom-modeline-github-interval (* 30 60))
 (setq find-file-visit-truename t)
+(setq column-number-mode t)
 
 ;; Themes
 (use-package doom-themes
@@ -227,7 +228,7 @@
   :bind ("C-c p" . projectile-command-map)
   :init (projectile-mode)
   (setq projectile-enable-caching t)
-  (setq projectile-indexing-method 'alien)
+  (setq projectile-indexing-method 'hybrid)
   (setq projectile-sort-order 'recently-active))
 
 (defun open-terminal-in-workdir ()
@@ -244,3 +245,39 @@
 (use-package helm-projectile
   :ensure t
   :init (helm-projectile-on))
+
+;; Page-break-lines (dependecy of dashboard)
+(use-package page-break-lines
+  :ensure t
+  :init (global-page-break-lines-mode))
+
+;; Dashboard
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook))
+
+(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))) ;; emacs daemon
+(setq dashboard-startup-banner 'logo)
+(setq dashboard-items '((projects . 5)
+                        (agenda . 7)))
+(setq dashboard-set-heading-icons t)
+(setq dashboard-set-file-icons t)
+(setq dashboard-set-init-info nil)
+(setq dashboard-set-footer nil)
+
+;; For privacy reasons I set the org-gcal configuration in another file. You can see how to configure here: https://github.com/myuhe/org-gcal.el
+(load-file "~/.emacs.d/cal.el")
+
+(use-package calfw
+  :ensure t
+  :config (require 'calfw)
+  (require 'calfw-org)
+  :bind ("C-c c" . cfw:open-org-calendar)
+  :init (setq calendar-week-start-day 1)
+  (setq calendar-month-name-array
+        ["Enero" "Febrero" "Marzo" "Abril" "Mayo" "Junio" "Julio" "Agosto" "Septiembre" "Octubre" "Noviembre" "Diciembre"])
+  (setq calendar-day-name-array
+        ["Domingo" "Lunes" "Martes" "Miércoles" "Jueves" "Viernes" "Sábado"])
+  (setq cfw:display-calendar-holidays nil))
+

@@ -4,11 +4,12 @@
    - Packages
      - [[https://github.com/Alfedi/.emacs.d#Melpa][Melpa]]
      - [[https://github.com/Alfedi/.emacs.d#Use-package][Use-package]]
-   - Personalization
+   - Customization
      - [[https://github.com/Alfedi/.emacs.d#Cleaning][Cleaning]]
      - [[https://github.com/Alfedi/.emacs.d#Rainbow-delimiters][Rainbow-delimiters]]
      - [[https://github.com/Alfedi/.emacs.d#Modeline][Doom-modeline]]
      - [[https://github.com/Alfedi/.emacs.d#Theme][Theme]]
+     - [[https://github.com/Alfedi/.emacs.d#Emacs-dashboard][Emacs-dashboard]]
    - Movement
      - [[https://github.com/Alfedi/.emacs.d#Windmove][Windmove]]
      - [[https://github.com/Alfedi/.emacs.d#Helm][Helm]]
@@ -118,6 +119,24 @@
     (set-face-attribute 'default nil :family "Input Mono 10")
     (set-frame-font "Input Mono 10")
     #+end_src
+
+*** Emacs-dashboard
+    Customizable Emacs dashboard
+    #+BEGIN_SRC elisp
+    (use-package dashboard
+    :ensure t
+    :config
+    (dashboard-setup-startup-hook))
+
+    (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))) ;; emacs daemon
+    (setq dashboard-startup-banner 'logo)
+    (setq dashboard-items '((projects . 5)
+                            (agenda . 7)))
+    (setq dashboard-set-heading-icons t)
+    (setq dashboard-set-file-icons t)
+    (setq dashboard-set-init-info nil)
+    (setq dashboard-set-footer nil)
+    #+END_SRC
 
 ** Move
 *** Windmove
@@ -285,6 +304,22 @@
      :ensure t)
     #+END_SRC
 
+*** Calendar
+    ~org-gcal~ and ~calfw~ to setup google calendar support and fancy calendar view. (For privacy reasons I decide not to post my ~org-gcal~ config, you should see their [[https://github.com/myuhe/org-gcal.el][repo]]).
+     #+BEGIN_SRC elisp
+     (use-package calfw
+     :ensure t
+     :config (require 'calfw)
+     (require 'calfw-org)
+     :bind ("C-c c" . cfw:open-org-calendar)
+     :init (setq calendar-week-start-day 1)
+     (setq calendar-month-name-array
+           ["Enero" "Febrero" "Marzo" "Abril" "Mayo" "Junio" "Julio" "Agosto" "Septiembre" "Octubre" "Noviembre" "Diciembre"])
+     (setq calendar-day-name-array
+           ["Domingo" "Lunes" "Martes" "Miércoles" "Jueves" "Viernes" "Sábado"])
+     (setq cfw:display-calendar-holidays nil))
+     #+END_SRC
+
 ** Programming
 *** Elixir-mode
     The hook applies ~elixir-format~ after saving file.
@@ -363,5 +398,3 @@
       :ensure t
       :init (helm-projectile-on))
      #+END_SRC
-
-
