@@ -194,12 +194,13 @@
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (python-mode . lsp) ;; pyls (Install with pip)
          (elixir-mode . lsp) ;; elixir-ls (Add language_server.sh to PATH)
+         (rust-mode   . lsp) ;; rls
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
 (use-package lsp-ui
   :ensure t
-  :bind ("C-c l i" . lsp-ui-imenu)
+  :bind (("C-c l i" . lsp-ui-imenu))
   :init (lsp-ui-mode)
   (lsp-ui-doc-mode)
   (setq lsp-ui-doc-delay 1))
@@ -230,6 +231,7 @@
   (setq projectile-enable-caching t)
   (setq projectile-indexing-method 'hybrid)
   (setq projectile-sort-order 'recently-active))
+(require 'tramp)
 
 (defun open-terminal-in-workdir ()
   "Function to open terminal in the project root."
@@ -265,6 +267,7 @@
 (setq dashboard-set-file-icons t)
 (setq dashboard-set-init-info nil)
 (setq dashboard-set-footer nil)
+(setq show-week-agenda-p t)
 
 ;; For privacy reasons I set the org-gcal configuration in another file. You can see how to configure here: https://github.com/myuhe/org-gcal.el
 (load-file "~/.emacs.d/cal.el")
@@ -281,3 +284,23 @@
         ["Domingo" "Lunes" "Martes" "Miércoles" "Jueves" "Viernes" "Sábado"])
   (setq cfw:display-calendar-holidays nil))
 
+;; Telega
+(use-package telega
+  :bind ("C-c t" . telega)
+  :defer t)
+;;(add-hook 'telega-load-hook 'global-telega-url-shorten-mode)
+(telega-notifications-mode 1)
+;; emoji support
+(use-package emojify
+  :ensure t
+  :config (global-emojify-mode t))
+
+(add-hook 'telega-chat-mode-hook
+          (lambda ()
+            (set (make-local-variable 'company-backends)
+                 (append '(telega-company-emoji
+                           telega-company-username
+                           telega-company-hashtag)
+                         (when (telega-chat-bot-p telega-chatbuf--chat)
+                           '(telega-company-botcmd))))
+            (company-mode 1)))
