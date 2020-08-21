@@ -74,6 +74,7 @@
          ("M-x" . helm-M-x)
          ("C-x b" . helm-mini)
          ("C-x C-b" . helm-buffers-list)))
+(setq helm-boring-buffer-regexp-list (list (rx "*") (rx "acm.org") (rx "universidad.org") (rx "examenes.org") (rx "personal.org") (rx "fiestas.org") (rx "magit")))
 
 (require 'helm-config)
 (setq helm-split-window-inside-p t
@@ -194,7 +195,7 @@
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (python-mode . lsp) ;; pyls (Install with pip)
          (elixir-mode . lsp) ;; elixir-ls (Add language_server.sh to PATH)
-         (rust-mode   . lsp) ;; rls
+	 (rust-mode   . lsp) ;; rls (rustup component add rls rust-analysis rust-src)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
