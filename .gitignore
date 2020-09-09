@@ -25,3 +25,4 @@ cal.el
 org-gcal/
 request/
 cookies.txt
+persist/

@@ -2,7 +2,7 @@
   (require 'package)
   (add-to-list
    'package-archives
-   '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+   '("melpa-stable" . "https://stable.melpa.org/packages") t)
   (add-to-list
    'package-archives
    '("melpa" . "http://melpa.org/packages/"))
@@ -195,13 +195,14 @@
   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
          (python-mode . lsp) ;; pyls (Install with pip)
          (elixir-mode . lsp) ;; elixir-ls (Add language_server.sh to PATH)
-	 (rust-mode   . lsp) ;; rls (rustup component add rls rust-analysis rust-src)
+         (rust-mode   . lsp) ;; rls (rustup component add rls rust-analysis rust-src)
          (lsp-mode . lsp-enable-which-key-integration))
   :commands lsp)
 
 (use-package lsp-ui
   :ensure t
-  :bind (("C-c l i" . lsp-ui-imenu))
+  :bind (("C-c l i" . lsp-ui-imenu)
+         ("C-c l d f" . lsp-ui-doc-focus-frame))
   :init (lsp-ui-mode)
   (lsp-ui-doc-mode)
   (setq lsp-ui-doc-delay 1))
