@@ -26,3 +26,5 @@ org-gcal/
 request/
 cookies.txt
 persist/
+.mc-lists.el
+flycheck_init.el

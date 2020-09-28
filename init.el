@@ -1,8 +1,8 @@
 (when (>= emacs-major-version 24)
   (require 'package)
-  (add-to-list
-   'package-archives
-   '("melpa-stable" . "https://stable.melpa.org/packages") t)
+  ;; (add-to-list
+  ;;  'package-archives
+  ;;  '("melpa-stable" . "https://stable.melpa.org/packages") t)
   (add-to-list
    'package-archives
    '("melpa" . "http://melpa.org/packages/"))
@@ -74,7 +74,7 @@
          ("M-x" . helm-M-x)
          ("C-x b" . helm-mini)
          ("C-x C-b" . helm-buffers-list)))
-(setq helm-boring-buffer-regexp-list (list (rx "*") (rx "acm.org") (rx "universidad.org") (rx "examenes.org") (rx "personal.org") (rx "fiestas.org") (rx "magit")))
+(setq helm-boring-buffer-regexp-list (list (rx "*") (rx "acm.org") (rx "universidad.org") (rx "examenes.org") (rx "personal.org") (rx "fiestas.org") (rx "magit") (rx "jpg")))
 
 (require 'helm-config)
 (setq helm-split-window-inside-p t
@@ -217,6 +217,15 @@
   :ensure t
   :config (which-key-mode))
 
+;; Multiple Cursors
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+	 ("C->" . mc/mark-next-like-this)
+	 ("C-." . mc/unmark-next-like-this)
+	 ("C-<" . mc/mark-previous-like-this)
+	 ("C-," . mc/unmark-previous-like-this)))
+
 ;; Flycheck
 (use-package flycheck
   :ensure t
@@ -279,7 +288,8 @@
   :config (require 'calfw)
   (require 'calfw-org)
   :bind ("C-c c" . cfw:open-org-calendar)
-  :init (setq calendar-week-start-day 1)
+  :init (org-gcal-fetch)
+  (setq calendar-week-start-day 1)
   (setq calendar-month-name-array
         ["Enero" "Febrero" "Marzo" "Abril" "Mayo" "Junio" "Julio" "Agosto" "Septiembre" "Octubre" "Noviembre" "Diciembre"])
   (setq calendar-day-name-array
@@ -292,10 +302,18 @@
   :defer t)
 ;;(add-hook 'telega-load-hook 'global-telega-url-shorten-mode)
 (telega-notifications-mode 1)
+(require 'telega-mnz)
 ;; emoji support
 (use-package emojify
   :ensure t
-  :config (global-emojify-mode t))
+  :hook ((telega-root-mode . emojify-mode)
+	 (telega-chat-mode . emojify-mode)))
+
+(use-package company-emoji
+  :ensure t)
+
+(add-to-list 'company-backends 'company-emoji)
+(setq emojify-company-tooltips-p t)
 
 (add-hook 'telega-chat-mode-hook
           (lambda ()
