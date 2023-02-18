@@ -1,8 +1,5 @@
 (when (>= emacs-major-version 24)
   (require 'package)
-  ;; (add-to-list
-  ;;  'package-archives
-  ;;  '("melpa-stable" . "https://stable.melpa.org/packages") t)
   (add-to-list
    'package-archives
    '("melpa" . "http://melpa.org/packages/"))
@@ -37,7 +34,7 @@
   :hook (after-init . doom-modeline-mode))
 
 (setq doom-modeline-height 10)
-(setq doom-modeline-buffer-file-name-style 'truncate-from-project)
+(setq doom-modeline-buffer-file-name-style 'relative-to-project)
 (setq doom-modeline-icon t)
 (setq doom-modeline-major-mode-icon t)
 (setq doom-modeline-minor-modes nil)
@@ -47,17 +44,16 @@
 (setq find-file-visit-truename t)
 (setq column-number-mode t)
 
+(setq global-auto-revert-mode t)
+
 ;; Themes
 (use-package doom-themes
   :ensure t
-  :init (load-theme 'doom-outrun-electric t)
+  :init (load-theme 'doom-plain-dark t)
   :config (doom-themes-org-config)
   (doom-themes-neotree-config))
 
-(add-to-list 'default-frame-alist '(font . "Input Mono 10"))
-(set-face-attribute 'default nil :family "Input Mono 10")
-(set-frame-font "Input Mono 10")
-
+(add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font Mono 13"))
 
 (use-package windmove
   :ensure t
@@ -74,9 +70,7 @@
          ("M-x" . helm-M-x)
          ("C-x b" . helm-mini)
          ("C-x C-b" . helm-buffers-list)))
-(setq helm-boring-buffer-regexp-list (list (rx "*") (rx "acm.org") (rx "universidad.org") (rx "examenes.org") (rx "personal.org") (rx "fiestas.org") (rx "magit") (rx "jpg")))
 
-(require 'helm-config)
 (setq helm-split-window-inside-p t
       helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match t
@@ -88,8 +82,18 @@
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 
-(use-package typing
-  :ensure t)
+(use-package which-key
+  :ensure t
+  :config (which-key-mode))
+
+;; Multiple Cursors
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-." . mc/unmark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-," . mc/unmark-previous-like-this)))
 
 (use-package spotify
   :ensure t
@@ -97,10 +101,6 @@
         ("C-S-s n" . spotify-next)
         ("C-S-s b" . spotify-previous)
         ("C-S-s c" . spotify-current)))
-
-(use-package golden-ratio
-  :ensure t
-  :config (golden-ratio-mode t))
 
 (use-package all-the-icons
   :ensure t)
@@ -110,10 +110,6 @@
   :bind (("C-x n" . neotree-toggle))
   :config (setq-default neo-show-hidden-files t)
   (setq neo-smart-open t))
-
-(use-package undo-tree
-  :ensure t
-  :config (global-undo-tree-mode t))
 
 (use-package magit
   :ensure t
@@ -153,6 +149,16 @@
 
 (global-set-key "\M-i" 'iwb)
 
+(use-package company
+  :ensure t
+  :init (global-company-mode)
+  :bind ("C-<tab>" . company-yasnippet))
+
+;; ---------- Programming ---------- ;;
+;; Elixir
+(use-package elixir-mode
+  :ensure t)
+
 ;; Yasnippets
 (use-package yasnippet
   :ensure t
@@ -164,75 +170,25 @@
 (use-package yasnippet-snippets
   :ensure t)
 
-(use-package company
+;; Eglot
+(use-package eglot
   :ensure t
-  :init (global-company-mode)
-  :bind ("C-<tab>" . company-yasnippet))
+  :hook ((js-mode . eglot-ensure))
+  :bind (("C-c r" . eglot-rename)
+         ("C-c a" . eglot-code-actions)
+         ("C-c s d" . eglot-shutdown)
+         ("C-c s r" . eglot-reconnect)
+         ("C-c l" . flymake-show-buffer-diagnostics)
+         ("C-c d" . eldoc-doc-buffer))
+  :config
+  (setq eglot-confirm-server-initiated-edits nil))
+(add-to-list 'eglot-server-programs
+             '(elixir-mode "/usr/lib/elixir-ls/language_server.sh"))
 
-;; Programming
-(use-package elixir-mode
-  :ensure t)
-;; Apply elixir-format after saving a file
-(add-hook 'elixir-mode-hook
-          (lambda () (add-hook 'before-save-hook 'elixir-format nil t)))
-
-(use-package alchemist
-  :ensure t)
-
-;; Ditaa support for org mode
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((ditaa . t))) ; this line activates ditaa
-
-(defun my-org-confirm-babel-evaluate (lang body)
-  (not (string= lang "ditaa")))  ; don't ask for ditaa
-(setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
-
-;; lsp-mode
-(use-package lsp-mode
-  :ensure t
-  :init (setq lsp-keymap-prefix "C-c l")
-  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (python-mode . lsp) ;; pyls (Install with pip)
-         (elixir-mode . lsp) ;; elixir-ls (Add language_server.sh to PATH)
-         (rust-mode   . lsp) ;; rls (rustup component add rls rust-analysis rust-src)
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
-
-(use-package lsp-ui
-  :ensure t
-  :bind (("C-c l i" . lsp-ui-imenu)
-         ("C-c l d f" . lsp-ui-doc-focus-frame))
-  :init (lsp-ui-mode)
-  (lsp-ui-doc-mode)
-  (setq lsp-ui-doc-delay 1))
-
-(add-hook 'prog-mode-hook 'lsp-ui-sideline-mode)
-
-(use-package helm-lsp
-  :ensure t
-  :commands helm-lsp-workspace-symbol)
-
-(use-package which-key
-  :ensure t
-  :config (which-key-mode))
-
-;; Multiple Cursors
-(use-package multiple-cursors
-  :ensure t
-  :bind (("C-S-c C-S-c" . mc/edit-lines)
-	 ("C->" . mc/mark-next-like-this)
-	 ("C-." . mc/unmark-next-like-this)
-	 ("C-<" . mc/mark-previous-like-this)
-	 ("C-," . mc/unmark-previous-like-this)))
-
-;; Flycheck
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode t))
-
-(use-package flycheck-elixir
-  :ensure t)
+(use-package flymake-shellcheck
+  :commands flymake-shellcheck-load
+  :init
+  (add-hook 'sh-mode-hook 'flymake-shellcheck-load))
 
 ;; Projectile
 (use-package projectile
@@ -243,15 +199,6 @@
   (setq projectile-indexing-method 'hybrid)
   (setq projectile-sort-order 'recently-active))
 (require 'tramp)
-
-(defun open-terminal-in-workdir ()
-  "Function to open terminal in the project root."
-  (interactive)
-  (let ((workdir (if (projectile-project-root)
-                     (projectile-project-root)
-                   default-directory)))
-    (call-process-shell-command
-     (concat "guake -e " workdir) nil 0)))
 
 (add-hook 'projectile-after-switch-project-hook 'open-terminal-in-workdir)
 
@@ -273,54 +220,23 @@
 (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))) ;; emacs daemon
 (setq dashboard-startup-banner 'logo)
 (setq dashboard-items '((projects . 5)
-                        (agenda . 7)))
+                        (bookmarks . 5)))
 (setq dashboard-set-heading-icons t)
 (setq dashboard-set-file-icons t)
 (setq dashboard-set-init-info nil)
 (setq dashboard-set-footer nil)
-(setq show-week-agenda-p t)
 
-;; For privacy reasons I set the org-gcal configuration in another file. You can see how to configure here: https://github.com/myuhe/org-gcal.el
-(load-file "~/.emacs.d/cal.el")
+;; org-mode configuration
+(setq org-todo-keywords
+      '((sequence "TODO" "DOING" "|" "DONE")))
 
-(use-package calfw
-  :ensure t
-  :config (require 'calfw)
-  (require 'calfw-org)
-  :bind ("C-c c" . cfw:open-org-calendar)
-  :init (org-gcal-fetch)
-  (setq calendar-week-start-day 1)
-  (setq calendar-month-name-array
-        ["Enero" "Febrero" "Marzo" "Abril" "Mayo" "Junio" "Julio" "Agosto" "Septiembre" "Octubre" "Noviembre" "Diciembre"])
-  (setq calendar-day-name-array
-        ["Domingo" "Lunes" "Martes" "Miércoles" "Jueves" "Viernes" "Sábado"])
-  (setq cfw:display-calendar-holidays nil))
-
-;; Telega
-(use-package telega
-  :bind ("C-c t" . telega)
-  :defer t)
-;;(add-hook 'telega-load-hook 'global-telega-url-shorten-mode)
-(telega-notifications-mode 1)
-(require 'telega-mnz)
-;; emoji support
-(use-package emojify
-  :ensure t
-  :hook ((telega-root-mode . emojify-mode)
-	 (telega-chat-mode . emojify-mode)))
-
-(use-package company-emoji
+;; v-term
+(use-package vterm
   :ensure t)
 
-(add-to-list 'company-backends 'company-emoji)
-(setq emojify-company-tooltips-p t)
+(use-package vterm-toggle
+  :ensure t
+  :bind ("C-x p s" . vterm-toggle-insert-cd))
 
-(add-hook 'telega-chat-mode-hook
-          (lambda ()
-            (set (make-local-variable 'company-backends)
-                 (append '(telega-company-emoji
-                           telega-company-username
-                           telega-company-hashtag)
-                         (when (telega-chat-bot-p telega-chatbuf--chat)
-                           '(telega-company-botcmd))))
-            (company-mode 1)))
+(provide 'init)
+;;; init.el ends here
