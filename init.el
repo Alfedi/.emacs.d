@@ -10,50 +10,52 @@
   (package-install 'use-package))
 (eval-when-compile (require 'use-package))
 
-(tooltip-mode -1)
-(tool-bar-mode -1)
+(tooltip-mode 0)
+(tool-bar-mode 0)
 (set-window-fringes nil 0 0)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
+(menu-bar-mode 0)
+(scroll-bar-mode 0)
 (setq inhibit-startup-screen t)
 (electric-pair-mode 1)
 (show-paren-mode 1)
 (setq custom-file "~/.emacs.d/.emacs-custom.el")
 (setq make-backup-files nil)
 (setq auto-save-default nil)
+(setq global-auto-revert-mode t)
+(add-to-list 'default-frame-alist '(font . "Mononoki Nerd Font Mono 15"))
+(set-frame-font "Mononoki Nerd Font Mono 15" nil t)
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(setq org-todo-keywords
+      '((sequence "TODO" "DOING" "|" "DONE")))
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (use-package rainbow-delimiters
   :ensure t
-  :init
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode 1))
+  :hook ((prog-mode . rainbow-delimiters-mode)))
 
-;; Mode line
 (use-package doom-modeline
   :ensure t
   :defer t
-  :hook (after-init . doom-modeline-mode))
+  :hook (after-init . doom-modeline-mode)
+  :config
+  (setq doom-modeline-height 10)
+  (setq doom-modeline-buffer-file-name-style 'relative-to-project)
+  (setq doom-modeline-icon t)
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-minor-modes nil)
+  (setq doom-modeline-lsp t)
+  (setq doom-modeline-github t)
+  (setq doom-modeline-github-interval (* 30 60))
+  (setq find-file-visit-truename t)
+  (setq column-number-mode t))
 
-(setq doom-modeline-height 10)
-(setq doom-modeline-buffer-file-name-style 'relative-to-project)
-(setq doom-modeline-icon t)
-(setq doom-modeline-major-mode-icon t)
-(setq doom-modeline-minor-modes nil)
-(setq doom-modeline-lsp t)
-(setq doom-modeline-github t)
-(setq doom-modeline-github-interval (* 30 60))
-(setq find-file-visit-truename t)
-(setq column-number-mode t)
-
-(setq global-auto-revert-mode t)
-
-;; Themes
 (use-package doom-themes
   :ensure t
-  :init (load-theme 'doom-plain-dark t)
-  :config (doom-themes-org-config)
+  :init (load-theme 'doom-ir-black t)
+  :config
+  (doom-themes-org-config)
   (doom-themes-neotree-config))
-
-(add-to-list 'default-frame-alist '(font . "FiraCode Nerd Font Mono 13"))
 
 (use-package windmove
   :ensure t
@@ -62,31 +64,93 @@
          ("C-<right>" . windmove-right)
          ("C-<left>" . windmove-left)))
 
-;; Thanks to @Ironjanowar for helm config
-(use-package helm
+(use-package orderless
   :ensure t
-  :init (helm-mode 1)
-  :bind (("C-x C-f" . helm-find-files)
-         ("M-x" . helm-M-x)
-         ("C-x b" . helm-mini)
-         ("C-x C-b" . helm-buffers-list)))
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
 
-(setq helm-split-window-inside-p t
-      helm-buffers-fuzzy-matching t
-      helm-recentf-fuzzy-match t
-      helm-move-to-line-cycle-in-source t
-      helm-ff-search-library-in-sexp t
-      helm-scroll-amount 8
-      helm-ff-file-name-history-use-recentf t
-      helm-M-x-fuzzy-match t)
+(use-package marginalia
+  :ensure t
+  :init (marginalia-mode))
 
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
+(use-package consult
+  :ensure t
+  :init
+  (setq xref-show-xrefs-function #'consult-xref
+        xref-show-definitions-function #'consult-xref)
+  :bind (;; C-c bindings (mode-specific-map)
+         ("C-c M-x" . consult-mode-command)
+         ("C-c h" . consult-history)
+         ("C-c k" . consult-kmacro)
+         ("C-c m" . consult-man)
+         ("C-c i" . consult-info)
+         ([remap Info-search] . consult-info)
+         ;; C-x bindings (ctl-x-map)
+         ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+         ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ;; Custom M-# bindings for fast register access
+         ("M-#" . consult-register-load)
+         ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+         ("C-M-#" . consult-register)
+         ;; Other custom bindings
+         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ;; M-g bindings (goto-map)
+         ("M-g e" . consult-compile-error)
+         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)             ;; orig. goto-line
+         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
+         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g m" . consult-mark)
+         ("M-g k" . consult-global-mark)
+         ("M-g i" . consult-imenu)
+         ("M-g I" . consult-imenu-multi)
+         ;; M-s bindings (search-map)
+         ("M-s d" . consult-find)
+         ("M-s D" . consult-locate)
+         ("M-s g" . consult-grep)
+         ("M-s G" . consult-git-grep)
+         ("M-s r" . consult-ripgrep)
+         ("M-s l" . consult-line)
+         ("M-s L" . consult-line-multi)
+         ("M-s k" . consult-keep-lines)
+         ("M-s u" . consult-focus-lines)
+         ;; Isearch integration
+         ("M-s e" . consult-isearch-history)
+         :map isearch-mode-map
+         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+         ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+         ;; Minibuffer history
+         :map minibuffer-local-map
+         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
+         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+  :hook (completion-list . consult-preview-at-point-mode))
+
+(use-package embark
+  :ensure t
+  :bind (("M-." . embark-act)
+         ("C-;" . embark-dwim) ;; good alternative: M-.
+         ("C-h B" . embark-bindings)))  ;; alternative for `describe-bindings'
+
+(use-package embark-consult
+  :ensure t)
+
+(use-package vertico
+  :ensure t
+  :init (vertico-mode))
 
 (use-package which-key
   :ensure t
-  :config (which-key-mode))
+  :config
+  (which-key-mode))
 
-;; Multiple Cursors
 (use-package multiple-cursors
   :ensure t
   :bind (("C-S-c C-S-c" . mc/edit-lines)
@@ -97,10 +161,10 @@
 
 (use-package spotify
   :ensure t
-  :bind(("C-S-s p" . spotify-playpause)
-        ("C-S-s n" . spotify-next)
-        ("C-S-s b" . spotify-previous)
-        ("C-S-s c" . spotify-current)))
+  :bind (("C-S-s p" . spotify-playpause)
+         ("C-S-s n" . spotify-next)
+         ("C-S-s b" . spotify-previous)
+         ("C-S-s c" . spotify-current)))
 
 (use-package all-the-icons
   :ensure t)
@@ -108,12 +172,13 @@
 (use-package neotree
   :ensure t
   :bind (("C-x n" . neotree-toggle))
-  :config (setq-default neo-show-hidden-files t)
+  :config
+  (setq-default neo-show-hidden-files t)
   (setq neo-smart-open t))
 
 (use-package magit
   :ensure t
-  :bind ("C-x g" . magit-status))
+  :bind ("C-x p v" . magit-status))
 
 ;; Copied from @Ironjanowar
 (defun new-scratch-buffer-new-window ()
@@ -131,7 +196,6 @@
     (balance-windows)
     (switch-to-buffer $buf)
     (org-mode)
-    (insert "# Notes\n\n")
     $buf))
 (global-set-key
  (kbd "C-c n")
@@ -154,26 +218,23 @@
   :init (global-company-mode)
   :bind ("C-<tab>" . company-yasnippet))
 
-;; ---------- Programming ---------- ;;
-;; Elixir
 (use-package elixir-mode
   :ensure t)
 
-;; Yasnippets
 (use-package yasnippet
   :ensure t
   :init (yas-global-mode t)
   :bind ("C-<tab>" . yas-expand))
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
 
 (use-package yasnippet-snippets
   :ensure t)
 
-;; Eglot
 (use-package eglot
   :ensure t
-  :hook ((js-mode . eglot-ensure))
+  :hook ((before-save . eglot-format)
+	 (js-mode . eglot-ensure)
+         (python-mode . eglot-ensure)
+         (shell-script-mode . eglot-ensure))
   :bind (("C-c r" . eglot-rename)
          ("C-c a" . eglot-code-actions)
          ("C-c s d" . eglot-shutdown)
@@ -181,62 +242,40 @@
          ("C-c l" . flymake-show-buffer-diagnostics)
          ("C-c d" . eldoc-doc-buffer))
   :config
-  (setq eglot-confirm-server-initiated-edits nil))
-(add-to-list 'eglot-server-programs
-             '(elixir-mode "/usr/lib/elixir-ls/language_server.sh"))
+  (setq eglot-confirm-server-initiated-edits nil)
+  (add-to-list 'eglot-server-programs
+               '(elixir-mode "/usr/lib/elixir-ls/language_server.sh")))
 
 (use-package flymake-shellcheck
   :commands flymake-shellcheck-load
-  :init
-  (add-hook 'sh-mode-hook 'flymake-shellcheck-load))
+  :hook (sh-mode-hook . flymake-shellcheck-load))
 
-;; Projectile
-(use-package projectile
-  :ensure t
-  :bind ("C-c p" . projectile-command-map)
-  :init (projectile-mode)
-  (setq projectile-enable-caching t)
-  (setq projectile-indexing-method 'hybrid)
-  (setq projectile-sort-order 'recently-active))
-(require 'tramp)
-
-(add-hook 'projectile-after-switch-project-hook 'open-terminal-in-workdir)
-
-(use-package helm-projectile
-  :ensure t
-  :init (helm-projectile-on))
-
-;; Page-break-lines (dependecy of dashboard)
 (use-package page-break-lines
   :ensure t
   :init (global-page-break-lines-mode))
 
-;; Dashboard
+(use-package yaml-mode
+  :ensure t)
+
+(use-package dockerfile-mode
+  :ensure t)
+
+(use-package json-mode
+  :ensure t)
+
+(use-package kotlin-mode
+  :ensure t)
+
 (use-package dashboard
   :ensure t
   :config
-  (dashboard-setup-startup-hook))
-
-(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))) ;; emacs daemon
-(setq dashboard-startup-banner 'logo)
-(setq dashboard-items '((projects . 5)
-                        (bookmarks . 5)))
-(setq dashboard-set-heading-icons t)
-(setq dashboard-set-file-icons t)
-(setq dashboard-set-init-info nil)
-(setq dashboard-set-footer nil)
-
-;; org-mode configuration
-(setq org-todo-keywords
-      '((sequence "TODO" "DOING" "|" "DONE")))
-
-;; v-term
-(use-package vterm
-  :ensure t)
-
-(use-package vterm-toggle
-  :ensure t
-  :bind ("C-x p s" . vterm-toggle-insert-cd))
-
-(provide 'init)
-;;; init.el ends here
+  (dashboard-setup-startup-hook)
+  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))) ;; emacs daemon
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-items '((projects . 10)
+                          (bookmarks . 5)))
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-set-init-info nil)
+  (setq dashboard-set-footer nil)
+  (setq dashboard-projects-backend 'project-el))
