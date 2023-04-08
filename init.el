@@ -178,7 +178,7 @@
 
 (use-package magit
   :ensure t
-  :bind ("C-x p v" . magit-status))
+  :bind ("C-x p m" . magit-project-status))
 
 ;; Copied from @Ironjanowar
 (defun new-scratch-buffer-new-window ()
