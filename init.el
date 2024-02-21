@@ -26,8 +26,96 @@
 (set-frame-font "Mononoki Nerd Font Mono 15" nil t)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+(setq completion-styles '(orderless basic)
+      completion-category-defaults nil
+      completion-category-overrides '((file (styles basic partial-completion))))
+
+(setq org-agenda-files
+      '("~/Documentos/org-notes/Tareas.org" "~/Documentos/org-notes/Agenda.org"))
+(add-hook 'calendar-load-hook
+          (lambda ()
+            (calendar-set-date-style 'european)))
+
+(add-hook 'org-mode-hook 'toggle-truncate-lines)
+(add-hook 'org-mode-hook 'toggle-word-wrap)
+(setq org-id-link-to-org-use-id t)
+
+(setq org-directory (concat (getenv "HOME") "/Documentos/org-notes/roam/"))
+(use-package org-roam
+  :ensure t
+  :after org
+  :custom
+  (org-roam-directory (file-truename org-directory))
+  :init
+  (org-roam-db-autosync-enable)
+  :bind(("C-c n f" . org-roam-node-find)
+        ("C-c n r" . org-roam-node-random)
+        (:map org-mode-map
+              (("C-c n i" . org-roam-node-insert)
+               ("C-c n o" . org-id-get-create)
+               ("C-c n t" . org-roam-tag-add)
+               ("C-c n a" . org-roam-alias-add)
+               ("C-c n l" . org-roam-buffer-toggle)
+               ("C-c s" . org-store-link)))))
+
+(setq calendar-holidays
+      '(
+        ;; State holidays
+        (holiday-fixed 1 1 "Año Nuevo")
+        (holiday-fixed 1 6 "Día de Reyes")
+        (holiday-fixed 3 19 "Día del padre")
+        (holiday-fixed 3 26 "Cambio de horario de verano")
+        (holiday-fixed 5 1 "Día del trabajador")
+        (holiday-fixed 5 2 "Día de la Comunidad de Madrid")
+        (holiday-fixed 5 15 "Día de San Isidro")
+        (holiday-fixed 6 24 "San Juan")
+        (holiday-fixed 8 15 "Asuncion de la Virgen")
+        (holiday-fixed 10 12 "Día de la Hispanidad")
+        (holiday-fixed 10 29 "Cambio de horario de invierno")
+        (holiday-fixed 11 1 "Todos los Santos")
+        (holiday-fixed 11 9 "La Almudena")
+        (holiday-fixed 12 6 "Día de la Constitucion")
+        (holiday-fixed 12 8 "Inmaculada Concepción")
+        (holiday-fixed 12 24 "Nochebuena")
+        (holiday-fixed 12 25 "Navidad")
+        (holiday-fixed 12 31 "Nochevieja")
+        ;; floated holidays
+        (holiday-easter-etc  -3 "Jueves Santo")
+        (holiday-easter-etc  -2 "Viernes Santo")
+        (holiday-easter-etc  0 "Domingo de Ramos")
+        (holiday-easter-etc  1 "Lunes de Pascua")
+        (holiday-easter-etc 50 "Lunes de pentecostes")))
+
+(setq org-agenda-include-diary t)
+(global-set-key (kbd "C-c c") #'org-capture)
+(global-set-key (kbd "C-c a") #'org-agenda)
+(setq org-capture-templates
+      '(("t" "Todo" entry (file "~/Documentos/org-notes/Tareas.org")
+         "* TODO %? \n")
+        ("n" "Proyect Note" entry (file "~/Documentos/org-notes/Proyectos.org")
+         "* %? %^g \n %a")
+        ("x" "Exam" plain (file+headline "~/Documentos/org-notes/Agenda.org" "Examenes")
+         "%\\%(org-date %^{date}) Examen de %?")
+        ("e" "Event" plain (file+headline "~/Documentos/org-notes/Agenda.org" "Eventos")
+         "%\\%(org-date %^{date}) %?")))
+(setq org-image-actual-width 700)
+(setq org-log-done 'time)
+(use-package ob-mermaid
+  :ensure t)
+
 (setq org-todo-keywords
-      '((sequence "TODO" "DOING" "|" "DONE")))
+      '((sequence "HOLD(h)" "TODO(t)" "DOING" "|" "DONE(d)" "DROP")))
+
+(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar")
+
+(org-babel-do-load-languages ;; List of available languages to evaluate in org mode
+ 'org-babel-load-languages
+ '((octave . t)
+   (mermaid . t)
+   (ditaa . t)))
+(setq org-confirm-babel-evaluate nil)
+
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (use-package rainbow-delimiters
@@ -45,7 +133,7 @@
   (setq doom-modeline-major-mode-icon t)
   (setq doom-modeline-minor-modes nil)
   (setq doom-modeline-lsp t)
-  (setq doom-modeline-github t)
+  (setq doom-modeline-github nil)
   (setq doom-modeline-github-interval (* 30 60))
   (setq find-file-visit-truename t)
   (setq column-number-mode t))
@@ -159,19 +247,12 @@
          ("C-<" . mc/mark-previous-like-this)
          ("C-," . mc/unmark-previous-like-this)))
 
-(use-package spotify
-  :ensure t
-  :bind (("C-S-s p" . spotify-playpause)
-         ("C-S-s n" . spotify-next)
-         ("C-S-s b" . spotify-previous)
-         ("C-S-s c" . spotify-current)))
-
 (use-package all-the-icons
   :ensure t)
 
 (use-package neotree
   :ensure t
-  :bind (("C-x n" . neotree-toggle))
+  :bind (("<f8>" . neotree-toggle))
   :config
   (setq-default neo-show-hidden-files t)
   (setq neo-smart-open t))
@@ -179,28 +260,6 @@
 (use-package magit
   :ensure t
   :bind ("C-x p m" . magit-project-status))
-
-;; Copied from @Ironjanowar
-(defun new-scratch-buffer-new-window ()
-  "Create a new scratch buffer in a
-  new window. I generally take a lot of notes
-  in different topics. For each new topic hit
-  C-c C-s and start taking your notes.
-  Most of these notes don't need to be
-  saved but are used like quick post it
-  notes."
-  (interactive)
-  (let (($buf (generate-new-buffer "notes")))
-    (split-window-right)
-    (other-window 1)
-    (balance-windows)
-    (switch-to-buffer $buf)
-    (org-mode)
-    $buf))
-(global-set-key
- (kbd "C-c n")
- 'new-scratch-buffer-new-window)
-(provide 'open-notes)
 
 ;; Indent Fucking Whole Buffer (by github.com/skgsergio)
 (defun iwb ()
@@ -215,32 +274,24 @@
 
 (use-package company
   :ensure t
-  :init (global-company-mode)
-  :bind ("C-<tab>" . company-yasnippet))
+  :init (global-company-mode))
 
 (use-package elixir-mode
-  :ensure t)
-
-(use-package yasnippet
-  :ensure t
-  :init (yas-global-mode t)
-  :bind ("C-<tab>" . yas-expand))
-
-(use-package yasnippet-snippets
   :ensure t)
 
 (use-package eglot
   :ensure t
   :hook ((before-save . eglot-format)
-	 (js-mode . eglot-ensure)
+         (js-mode . eglot-ensure)
          (python-mode . eglot-ensure)
-	 (sh-mode . eglot-ensure)
-	 (elixir-mode . eglot-ensure)
-	 (c-mode . eglot-ensure)
-	 (c++-mode . eglot-ensure)
-	 (java-mode . eglot-ensure))
+         (sh-mode . eglot-ensure)
+         (elixir-mode . eglot-ensure)
+         (c-mode . eglot-ensure)
+         (c++-mode . eglot-ensure)
+         (java-mode . eglot-ensure)
+         (LaTeX-mode. eglot-ensure))
   :bind (("C-c r" . eglot-rename)
-         ("C-c a" . eglot-code-actions)
+         ("C-c C-a" . eglot-code-actions)
          ("C-c s s" . eglot-shutdown)
          ("C-c s r" . eglot-reconnect)
          ("C-c l" . consult-flymake)
@@ -258,6 +309,10 @@
   :ensure t
   :init (global-page-break-lines-mode))
 
+(use-package yasnippet
+  :ensure t
+  :init (yas-global-mode))
+
 (use-package yaml-mode
   :ensure t)
 
@@ -270,6 +325,15 @@
 (use-package kotlin-mode
   :ensure t)
 
+(use-package tree-sitter
+  :ensure t
+  :config
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+(use-package tree-sitter-langs
+  :ensure t)
+
 (use-package dashboard
   :ensure t
   :config
@@ -277,7 +341,8 @@
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))) ;; emacs daemon
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-items '((projects . 10)
-                          (bookmarks . 5)))
+                          (bookmarks . 5)
+                          (agenda . 7)))
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-set-init-info nil)
