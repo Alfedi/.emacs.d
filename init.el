@@ -5,10 +5,10 @@
    '("melpa" . "http://melpa.org/packages/"))
   (package-initialize))
 
-(unless (featurep 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(eval-when-compile (require 'use-package))
+;; (unless (featurep 'use-package)
+;;   (package-refresh-contents)
+;;   (package-install 'use-package))
+;; (eval-when-compile (require 'use-package))
 
 (tooltip-mode 0)
 (tool-bar-mode 0)
@@ -27,12 +27,9 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
-(setq completion-styles '(orderless basic)
-      completion-category-defaults nil
-      completion-category-overrides '((file (styles basic partial-completion))))
-
 (setq org-agenda-files
       '("~/Documentos/org-notes/Tareas.org" "~/Documentos/org-notes/Agenda.org"))
+(setq org-agenda-diary-file "~/Documentos/org-notes/Agenda.org")
 (add-hook 'calendar-load-hook
           (lambda ()
             (calendar-set-date-style 'european)))
@@ -40,8 +37,25 @@
 (add-hook 'org-mode-hook 'toggle-truncate-lines)
 (add-hook 'org-mode-hook 'toggle-word-wrap)
 (setq org-id-link-to-org-use-id t)
+(setq org-return-follows-link t)
+
+(setq org-html-doctype "html5")
+
+(setq org-clock-sound "~/.emacs.d/bell.wav")
+
+(setq org-attach-method 'lns)
+
+(require 'ox-md)
+(require 'ox-beamer)
+(use-package ox-epub
+  :ensure t
+  :after org
+  :init
+  (require 'ox-epub))
+
 
 (setq org-directory (concat (getenv "HOME") "/Documentos/org-notes/roam/"))
+(setq org-roam-db-location (concat (getenv "HOME") "/Documentos/org-notes/org-roam.db"))
 (use-package org-roam
   :ensure t
   :after org
@@ -95,17 +109,21 @@
          "* TODO %? \n")
         ("n" "Proyect Note" entry (file "~/Documentos/org-notes/Proyectos.org")
          "* %? %^g \n %a")
-        ("x" "Exam" plain (file+headline "~/Documentos/org-notes/Agenda.org" "Examenes")
+        ("x" "Examen" plain (file+headline "~/Documentos/org-notes/Agenda.org" "Examenes")
          "%\\%(org-date %^{date}) Examen de %?")
-        ("e" "Event" plain (file+headline "~/Documentos/org-notes/Agenda.org" "Eventos")
+        ("e" "Evento" plain (file+headline "~/Documentos/org-notes/Agenda.org" "Eventos")
          "%\\%(org-date %^{date}) %?")))
+
 (setq org-image-actual-width 700)
 (setq org-log-done 'time)
+
 (use-package ob-mermaid
   :ensure t)
 
 (setq org-todo-keywords
       '((sequence "HOLD(h)" "TODO(t)" "DOING" "|" "DONE(d)" "DROP")))
+
+(setq org-todo-repeat-to-state "TODO")
 
 (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar")
 
@@ -113,10 +131,28 @@
  'org-babel-load-languages
  '((octave . t)
    (mermaid . t)
-   (ditaa . t)))
+   (ditaa . t)
+   (shell . t)))
 (setq org-confirm-babel-evaluate nil)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(setq org-enforce-todo-dependencies t)
+(setq org-enforce-todo-checkbox-dependencies t)
+
+(setq org-latex-src-block-backend 'engraved)
+
+(use-package org-alert
+  :ensure t
+  :after org
+  :config
+  (setq alert-default-style 'libnotify)
+  (setq org-alert-interval 300
+	org-alert-notify-cutoff 5
+	org-alert-notify-after-event-cutoff 10)
+  (setq org-alert-notification-title "Agenda")
+  (org-alert-enable))
+
 
 (use-package rainbow-delimiters
   :ensure t
@@ -140,10 +176,15 @@
 
 (use-package doom-themes
   :ensure t
-  :init (load-theme 'doom-ir-black t)
+  :init (load-theme 'doom-monokai-spectrum t)
   :config
   (doom-themes-org-config)
   (doom-themes-neotree-config))
+
+(use-package solaire-mode
+  :ensure t
+  :config
+  (solaire-global-mode +1))
 
 (use-package windmove
   :ensure t
@@ -154,10 +195,19 @@
 
 (use-package orderless
   :ensure t
-  :init
+  :config
+  (defun basic-remote-try-completion (string table pred point)
+    (and (vertico--remote-p string)
+         (completion-basic-try-completion string table pred point)))
+  (defun basic-remote-all-completions (string table pred point)
+    (and (vertico--remote-p string)
+         (completion-basic-all-completions string table pred point)))
+  (add-to-list
+   'completion-styles-alist
+   '(basic-remote basic-remote-try-completion basic-remote-all-completions nil))
   (setq completion-styles '(orderless basic)
         completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
+        completion-category-overrides '((file (styles basic-remote partial-completion)))))
 
 (use-package marginalia
   :ensure t
@@ -255,7 +305,7 @@
   :bind (("<f8>" . neotree-toggle))
   :config
   (setq-default neo-show-hidden-files t)
-  (setq neo-smart-open t))
+  (setq neo-smart-open nil))
 
 (use-package magit
   :ensure t
@@ -279,6 +329,12 @@
 (use-package elixir-mode
   :ensure t)
 
+(use-package eglot-java
+  :ensure t
+  :bind(("C-c e r" . eglot-java-run-main)
+        ("C-c e t" . eglot-java-run-test)
+        ("C-c e T" . eglot-java-project-build-task)))
+
 (use-package eglot
   :ensure t
   :hook ((before-save . eglot-format)
@@ -288,18 +344,23 @@
          (elixir-mode . eglot-ensure)
          (c-mode . eglot-ensure)
          (c++-mode . eglot-ensure)
-         (java-mode . eglot-ensure)
-         (LaTeX-mode. eglot-ensure))
+         (java-mode . eglot-java-mode)
+         (LaTeX-mode . eglot-ensure))
   :bind (("C-c r" . eglot-rename)
-         ("C-c C-a" . eglot-code-actions)
+         ("C-c e a" . eglot-code-actions)
          ("C-c s s" . eglot-shutdown)
          ("C-c s r" . eglot-reconnect)
          ("C-c l" . consult-flymake)
+	 ("C-c L" . flymake-show-project-diagnostics)
          ("C-c d" . eldoc-doc-buffer))
   :config
   (setq eglot-confirm-server-initiated-edits nil)
   (add-to-list 'eglot-server-programs
-               '(elixir-mode "/usr/lib/elixir-ls/language_server.sh")))
+               '(elixir-mode "/usr/lib/elixir-ls/language_server.sh"))
+  (cl-defmethod eglot-execute-command
+    (_server (_cmd (eql java.apply.workspaceEdit)) arguments)
+    "Eclipse JDT breaks spec and replies with edits as arguments."
+    (mapc #'eglot--apply-workspace-edit arguments)))
 
 (use-package flymake-shellcheck
   :commands flymake-shellcheck-load
@@ -341,10 +402,39 @@
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))) ;; emacs daemon
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-items '((projects . 10)
-                          (bookmarks . 5)
+                          (bookmarks . 7)
                           (agenda . 7)))
+  (setq dashboard-week-agenda t)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-set-init-info nil)
   (setq dashboard-set-footer nil)
+  (setq dashboard-filter-agenda-entry 'dashboard-no-filter-agenda)
+  (setq dashboard-match-agenda-entry "-TODO=\"HOLD\"-title=\"true\"-CATEGORY=\"Cumpleaños\"-CATEGORY=\"Horario\"")
+  (setq dashboard-agenda-prefix-format " %i %-12:c %t %-10s ")
+  (setq dashboard-agenda-sort-strategy '(todo-state-up priority-up time-up))
   (setq dashboard-projects-backend 'project-el))
+
+(use-package easy-jekyll
+  :ensure t
+  :init
+  (add-to-list 'exec-path "/home/alfedi/.gem/bin")
+  (setq easy-jekyll-basedir "~/Documentos/Trasteando/Alfedi.github.io")
+  (setq easy-jekyll-url "https://www.aferrero.boo")
+  (setq easy-jekyll-sshdomain "pcera")
+  (setq easy-jekyll-root "/home/www/")
+  (setq easy-jekyll-previewtime "300"))
+
+(use-package auctex
+  :ensure t
+  :config
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master nil)
+  (add-to-list 'exec-path "/usr/bin/vendor_perl") ;; Biber command
+  (setq tex-fontify-script nil))
+
+(use-package exec-path-from-shell
+  :ensure t
+  :init
+  (exec-path-from-shell-initialize))
