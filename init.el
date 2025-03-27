@@ -391,7 +391,7 @@
         (java-mode . java-ts-mode)
         (json-mode . json-ts-mode)
         (dockerfile-mode . dockerfile-ts-mode)
-	(shell-script-mode . bash-ts-mode)))
+        (shell-script-mode . bash-ts-mode)))
 
 (use-package tree-sitter-langs
   :ensure t)
