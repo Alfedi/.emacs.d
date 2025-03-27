@@ -285,10 +285,7 @@
   :ensure t
   :init (vertico-mode))
 
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
+(which-key-mode)
 
 (use-package multiple-cursors
   :ensure t
