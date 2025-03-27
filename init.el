@@ -148,8 +148,8 @@
   :config
   (setq alert-default-style 'libnotify)
   (setq org-alert-interval 300
-	org-alert-notify-cutoff 5
-	org-alert-notify-after-event-cutoff 10)
+        org-alert-notify-cutoff 5
+        org-alert-notify-after-event-cutoff 10)
   (setq org-alert-notification-title "Agenda")
   (org-alert-enable))
 
