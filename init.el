@@ -384,11 +384,13 @@
 (use-package kotlin-mode
   :ensure t)
 
-(use-package tree-sitter
-  :ensure t
-  :config
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+(require 'treesit)
+(setq major-mode-remap-alist
+      '((python-mode . python-ts-mode)
+        (java-mode . java-ts-mode)
+        (json-mode . json-ts-mode)
+        (dockerfile-mode . dockerfile-ts-mode)
+	(shell-script-mode . bash-ts-mode)))
 
 (use-package tree-sitter-langs
   :ensure t)
