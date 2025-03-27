@@ -410,7 +410,7 @@
   (setq dashboard-filter-agenda-entry 'dashboard-no-filter-agenda)
   (setq dashboard-match-agenda-entry "-TODO=\"HOLD\"-title=\"true\"-CATEGORY=\"Cumpleaños\"-CATEGORY=\"Horario\"")
   (setq dashboard-agenda-prefix-format " %i %-12:c %t %-10s ")
-  (setq dashboard-agenda-sort-strategy '(todo-state-up priority-up time-up))
+  (setq dashboard-agenda-sort-strategy '(todo-state-down priority-up time-up))
   (setq dashboard-projects-backend 'project-el))
 
 (use-package easy-jekyll
