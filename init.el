@@ -350,7 +350,7 @@
          ("C-c s s" . eglot-shutdown)
          ("C-c s r" . eglot-reconnect)
          ("C-c l" . consult-flymake)
-	 ("C-c L" . flymake-show-project-diagnostics)
+         ("C-c L" . flymake-show-project-diagnostics)
          ("C-c d" . eldoc-doc-buffer))
   :config
   (setq eglot-confirm-server-initiated-edits nil)
