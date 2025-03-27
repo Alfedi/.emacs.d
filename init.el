@@ -132,7 +132,8 @@
  '((octave . t)
    (mermaid . t)
    (ditaa . t)
-   (shell . t)))
+   (shell . t)
+   (python . t)))
 (setq org-confirm-babel-evaluate nil)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
