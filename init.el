@@ -169,10 +169,11 @@
   (setq doom-modeline-major-mode-icon t)
   (setq doom-modeline-minor-modes nil)
   (setq doom-modeline-lsp t)
-  (setq doom-modeline-github nil)
-  (setq doom-modeline-github-interval (* 30 60))
+  (setq doom-modeline-lsp-icon t)
   (setq find-file-visit-truename t)
-  (setq column-number-mode t))
+  (setq column-number-mode t)
+  (setq project-mode-line t)
+  (setq doom-modeline-env-version t))
 
 (use-package doom-themes
   :ensure t
