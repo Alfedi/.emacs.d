@@ -439,3 +439,12 @@
   :ensure t
   :init
   (exec-path-from-shell-initialize))
+
+(use-package elfeed
+  :ensure t
+  :config
+  (setq elfeed-db-directory "/home/alfedi/.emacs.d/elfeed")
+  (setq elfeed-feeds
+	'("https://aafrecct.page/feed.xml"
+	  ("https://kill-the-newsletter.com/feeds/so99c5tp7cdj3gevcf9p.xml" ComputerScience)
+	  ("https://theangrygm.com/rss" TTRPG))))
