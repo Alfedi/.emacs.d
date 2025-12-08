@@ -31,8 +31,8 @@
 (menu-bar-mode 0)
 (scroll-bar-mode 0)
 (setq inhibit-startup-screen t)
-(setq electric-pair-mode 1)
-(setq show-paren-mode 1)
+(electric-pair-mode 1)
+(show-paren-mode 1)
 (setq custom-file "~/.emacs.d/.emacs-custom.el")
 (add-to-list 'default-frame-alist '(font . "Mononoki Nerd Font Mono 15"))
 (set-frame-font "Mononoki Nerd Font Mono 15" nil t)
@@ -123,19 +123,9 @@
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles partial-completion))
 				   (eglot (styles orderless))
-				   (eglot-capf (styles orderless)))
+				   (eglot-capf (styles orderless))))
   (completion-category-defaults nil)
-  (completion-pcm-leading-wildcard t)
-  :config
-  (defun basic-remote-try-completion (string table pred point)
-    (and (vertico--remote-p string)
-         (completion-basic-try-completion string table pred point)))
-  (defun basic-remote-all-completions (string table pred point)
-    (and (vertico--remote-p string)
-         (completion-basic-all-completions string table pred point)))
-  (add-to-list
-   'completion-styles-alist
-   '(basic-remote basic-remote-try-completion basic-remote-all-completions nil))))
+  (completion-pcm-leading-wildcard t))
 
 (use-package marginalia
   :straight t
