@@ -454,7 +454,11 @@
 
 
 ;; misc packages
-(straight-use-package 'pdf-tools)
+(use-package pdf-tools
+  :straight t
+  :hook
+  (LaTeX-mode . TeX-source-correlate-mode))
+(pdf-loader-install)
 
 (use-package auctex
   :straight t
@@ -464,3 +468,8 @@
   (setq-default TeX-master nil)
   (add-to-list 'exec-path "/usr/bin/vendor_perl") ;; Biber command
   (setq tex-fontify-script nil))
+
+;; Add pdf-tools as view option in auctex
+(setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+      TeX-source-correlate-start-server t)
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
