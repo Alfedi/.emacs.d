@@ -237,6 +237,13 @@
   (corfu-cycle t)
   (corfu-popupinfo-delay 0))
 
+(use-package cape
+  :straight t
+  :init
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-elisp-block))
+
 (use-package nerd-icons-corfu
   :straight t
   :config
