@@ -123,8 +123,8 @@
   :custom
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles partial-completion))
-				   (eglot (styles orderless))
-				   (eglot-capf (styles orderless))))
+                                   (eglot (styles orderless))
+                                   (eglot-capf (styles orderless))))
   (completion-category-defaults nil)
   (completion-pcm-leading-wildcard t))
 
@@ -227,8 +227,8 @@
   (corfu-popupinfo-mode)
   :config
   (add-hook 'eshell-mode-hook (lambda ()
-                              (setq-local corfu-auto nil)
-                              (corfu-mode)))
+                                (setq-local corfu-auto nil)
+                                (corfu-mode)))
   (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
   :bind
   (:map corfu-map ("SPC" . corfu-insert-separator))
@@ -483,8 +483,7 @@
 (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster)
 
 (setq eglot-confirm-server-initiated-edits nil)
-(add-to-list 'eglot-server-programs
-             '(elixir-mode "/usr/lib/elixir-ls/language_server.sh"))
+
 (cl-defmethod eglot-execute-command
   (_server (_cmd (eql java.apply.workspaceEdit)) arguments)
   "Eclipse JDT breaks spec and replies with edits as arguments."
