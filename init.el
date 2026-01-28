@@ -386,6 +386,49 @@
   (org-alert-enable))
 
 
+(use-package org-caldav
+  :straight t
+  :after org
+  :config
+  (setq org-caldav-url "<url>")
+  (setq org-caldav-calendar-id "<id>")
+  (setq org-caldav-inbox "~/Documentos/org-notes/Calendar.org")
+  (setq org-caldav-files '("~/Documentos/org-notes/Tareas.org"
+			  "~/Documentos/org-notes/Agenda.org"))
+  (setq org-icalendar-timezone "Europe/Madrid")
+  (setq org-icalendar-include-todo 'all
+	org-caldav-sync-todo t)
+  (setq org-caldav-todo-percent-states '((0 "TODO") (100 "DONE") (0 "HOLD") (50 "DOING") (0 "DROP")))
+  (setq org-icalendar-use-deadline '(event-if-todo event-if-not-todo todo-due))
+  (setq org-icalendar-use-scheduled '(todo-start event-if-todo event-if-not-todo)))
+
+;; project.el enhancements
+(defcustom project-root-markers
+  '("Cargo.toml"
+    "compile_commands.json"
+    "compile_flags.txt"
+    "project.clj"
+    "platformio.ini"
+    ".git"
+    )
+  "Files or directories that indicate the root of a project."
+  :type '(repeat string)
+  :group 'project)
+
+(defun project-root-p (path)
+  "Check if the current PATH has any of the project root markers."
+  (catch 'found
+    (dolist (marker project-root-markers)
+      (when (file-exists-p (concat path marker))
+        (throw 'found marker)))))
+
+(defun project-find-root (path)
+  "Search up the PATH for `project-root-markers'."
+  (when-let ((root (locate-dominating-file path #'project-root-p)))
+    (cons 'transient (expand-file-name root))))
+
+(add-to-list 'project-find-functions #'project-find-root)
+
 ;; Programming config
 (use-package magit
   :straight t
