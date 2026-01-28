@@ -400,7 +400,12 @@
 ;;         (dockerfile-mode . dockerfile-ts-mode)
 ;;         (shell-script-mode . bash-ts-mode)))
 
+(use-package yasnippet
+  :straight t
+  :config
+  (yas-global-mode 1))
 
+(straight-use-package 'yasnippet-snippets)
 ;;;; Language modes
 (straight-use-package 'elixir-mode)
 (straight-use-package 'yaml-mode)
