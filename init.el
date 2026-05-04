@@ -429,7 +429,11 @@
 
 (add-to-list 'project-find-functions #'project-find-root)
 
+(straight-use-package 'org-download)
+(require 'org-download)
+
 ;; Programming config
+(straight-use-package 'transient)
 (use-package magit
   :straight t
   :bind ("C-x p m" . magit-project-status))
@@ -459,6 +463,7 @@
   :straight t
   :init
   :hook (arduino-mode-hook . platformio-conditionally-enable))
+(straight-use-package 'nginx-mode)
 
 ;;;; eglot
 (require 'eglot)
@@ -497,6 +502,7 @@
 
 
 ;; misc packages
+
 (use-package pdf-tools
   :straight t
   :hook
