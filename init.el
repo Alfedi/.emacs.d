@@ -317,10 +317,9 @@
         (holiday-fixed 3 26 "Cambio de horario de verano")
         (holiday-fixed 5 1 "Día del trabajador")
         (holiday-fixed 5 2 "Día de la Comunidad de Madrid")
-        (holiday-fixed 5 15 "Día de San Isidro")
-        (holiday-fixed 6 24 "San Juan")
+        (holiday-fixed 5 15 "San Isidro")
         (holiday-fixed 8 15 "Asuncion de la Virgen")
-        (holiday-fixed 10 12 "Día de la Hispanidad")
+        (holiday-fixed 10 12 "Fiesta nacional")
         (holiday-fixed 10 29 "Cambio de horario de invierno")
         (holiday-fixed 11 1 "Todos los Santos")
         (holiday-fixed 11 9 "La Almudena")
@@ -332,9 +331,7 @@
         ;; floated holidays
         (holiday-easter-etc  -3 "Jueves Santo")
         (holiday-easter-etc  -2 "Viernes Santo")
-        (holiday-easter-etc  0 "Domingo de Ramos")
-        (holiday-easter-etc  1 "Lunes de Pascua")
-        (holiday-easter-etc 50 "Lunes de pentecostes")))
+	(holiday-float 5 0 1 "Día de la madre")))
 
 (setq org-agenda-include-diary t)
 (global-set-key (kbd "C-c c") #'org-capture)
@@ -394,10 +391,10 @@
   (setq org-caldav-calendar-id "<id>")
   (setq org-caldav-inbox "~/Documentos/org-notes/Calendar.org")
   (setq org-caldav-files '("~/Documentos/org-notes/Tareas.org"
-			  "~/Documentos/org-notes/Agenda.org"))
+                           "~/Documentos/org-notes/Agenda.org"))
   (setq org-icalendar-timezone "Europe/Madrid")
   (setq org-icalendar-include-todo 'all
-	org-caldav-sync-todo t)
+        org-caldav-sync-todo t)
   (setq org-caldav-todo-percent-states '((0 "TODO") (100 "DONE") (0 "HOLD") (50 "DOING") (0 "DROP")))
   (setq org-icalendar-use-deadline '(event-if-todo event-if-not-todo todo-due))
   (setq org-icalendar-use-scheduled '(todo-start event-if-todo event-if-not-todo)))
