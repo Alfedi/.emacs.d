@@ -331,7 +331,7 @@
         ;; floated holidays
         (holiday-easter-etc  -3 "Jueves Santo")
         (holiday-easter-etc  -2 "Viernes Santo")
-	(holiday-float 5 0 1 "Día de la madre")))
+        (holiday-float 5 0 1 "Día de la madre")))
 
 (setq org-agenda-include-diary t)
 (global-set-key (kbd "C-c c") #'org-capture)
@@ -552,14 +552,14 @@
 (straight-use-package 'htmlize)
 
 (straight-use-package '(org-publish-rss :repo "https://git.sr.ht/~taingram/org-publish-rss"
-					:branch "master"))
+                                        :branch "master"))
 
 (setq org-publish-use-timestamps-flag nil)
 
 (setq org-export-global-macros
       '(("timestamp" . "@@html:<div class=\"entry-timestamp\">$1</div>@@")
         ("excerpt" . "@@html:<div class=\"entry-excerpt\">$1</div>@@")
-	("entry-title" . "@@html:<h1 class=\"entry-title\"><a href=posts/$1>$2</a></h1>@@")
+        ("entry-title" . "@@html:<h1 class=\"entry-title\"><a href=posts/$1>$2</a></h1>@@")
         ))
 
 (defun my/org-sitemap-entry-format (entry style project)
@@ -573,13 +573,13 @@
               (format-time-string "%d %B %Y"
                                   (org-publish-find-date entry project))
               ;; (my/get-preview entry project)
-	      ))))
+              ))))
 
 (setq org-publish-project-alist
       '(("posts"
          :base-directory "~/Documentos/blog/posts"
-	 :publishing-directory "/sshx:pcera:/home/www/posts"
-	 ;; :publishing-directory "~/Documentos/Trasteando/blog-html/posts/" ;; Draft directory
+         :publishing-directory "/sshx:pcera:/home/www/posts"
+         ;; :publishing-directory "~/Documentos/Trasteando/blog-html/posts/" ;; Draft directory
          :publishing-function org-html-publish-to-html
          :htmlized-source t
 
@@ -589,18 +589,18 @@
          :with-title nil
          :with-sub-superscript nil
          :with-creator nil
-	 :with-footnotes t
+         :with-footnotes t
          :author "Álvaro Ferrero"
          :email "me@aferrero.boo"
 
-	 :auto-rss t
-	 :rss-title "Movidas de Ferrero"
-	 :rss-description "Nada de lo que digo tiene sentido"
-	 :rss-with-content top
-	 :completion-function org-publish-rss
-	 :rss-link "www.aferrero.boo"
-	 :rss-root-url "www.aferrero.boo/posts/"
-	 :rss-file "../rss.xml"
+         :auto-rss t
+         :rss-title "Movidas de Ferrero"
+         :rss-description "Nada de lo que digo tiene sentido"
+         :rss-with-content top
+         :completion-function org-publish-rss
+         :rss-link "www.aferrero.boo"
+         :rss-root-url "www.aferrero.boo/posts/"
+         :rss-file "../rss.xml"
 
          :html-link-home "/"
          :html-head "
@@ -669,22 +669,22 @@
          :language "es")
         ("res"
          :base-directory "~/Documentos/blog/res"
-	 :publishing-directory "/sshx:pcera:/home/www/res"
-	 ;; :publishing-directory "~/Documentos/Trasteando/blog-html/res" ;; Draft
+         :publishing-directory "/sshx:pcera:/home/www/res"
+         ;; :publishing-directory "~/Documentos/Trasteando/blog-html/res" ;; Draft
          :base-extension "css"
          :publishing-function org-publish-attachment)
         ("img"
          :base-directory "~/Documentos/blog/img/"
          :base-extension ".*"
-	 :publishing-directory "/sshx:pcera:/home/www/img"
+         :publishing-directory "/sshx:pcera:/home/www/img"
          ;; :publishing-directory "~/Documentos/Trasteando/blog-html/img" ;; Draft
-	 :publishing-function org-publish-attachment
+         :publishing-function org-publish-attachment
          :recursive t)
-	("rss"
-	 :base-directory "~/Documentos/blog/"
-	 :publishing-directory "/sshx:pcera:/home/www/"
-	 ;; :publishing-directory "~/Documentos/Trasteando/blog-html/" ;; Draft
-	 :base-extension "xml"
-	 :publishing-function org-publish-attachment)
+        ("rss"
+         :base-directory "~/Documentos/blog/"
+         :publishing-directory "/sshx:pcera:/home/www/"
+         ;; :publishing-directory "~/Documentos/Trasteando/blog-html/" ;; Draft
+         :base-extension "xml"
+         :publishing-function org-publish-attachment)
         ("blog"
          :components ("posts" "res" "img" "rss"))))
