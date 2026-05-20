@@ -673,6 +673,12 @@
          ;; :publishing-directory "~/Documentos/Trasteando/blog-html/res" ;; Draft
          :base-extension "css"
          :publishing-function org-publish-attachment)
+        ("fonts"
+         :base-directory "~/Documentos/blog/res/fonts"
+         :publishing-directory "/sshx:pcera:/home/www/res/fonts"
+         ;; :publishing-directory "~/Documentos/Trasteando/blog-html/res/fonts" ;; Draft
+         :base-extension "otf"
+         :publishing-function org-publish-attachment)
         ("img"
          :base-directory "~/Documentos/blog/img/"
          :base-extension ".*"
@@ -687,4 +693,4 @@
          :base-extension "xml"
          :publishing-function org-publish-attachment)
         ("blog"
-         :components ("posts" "res" "img" "rss"))))
+         :components ("posts" "res" "fonts" "img" "rss"))))
