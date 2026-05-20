@@ -518,3 +518,173 @@
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
+
+;; Dictionary settings
+(setq ispell-personal-dictionary "~/.emacs.d/dict")
+(setq ispell-dictionary "es_ES")
+(setq ispell-alternate-dictionary "en_US")
+(add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
+(add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
+(add-to-list 'ispell-skip-region-alist '("#\\+" . ":"))
+(add-to-list 'ispell-skip-region-alist '("\\[fn:" . "\\]"))
+(add-to-list 'ispell-skip-region-alist '("<" . ">"))
+
+(use-package languagetool
+  :ensure t
+  :defer t
+  :commands (languagetool-check
+             languagetool-clear-suggestions
+             languagetool-correct-at-point
+             languagetool-correct-buffer
+             languagetool-set-language
+             languagetool-server-mode
+             languagetool-server-start
+             languagetool-server-stop)
+  :bind("M-$" . languagetool-correct-at-point))
+
+(setq languagetool-java-arguments '("-Dfile.encoding=UTF-8"
+                                    "-cp" "/usr/share/languagetool:/usr/share/java/languagetool/*")
+      languagetool-console-command "org.languagetool.commandline.Main"
+      languagetool-server-command "org.languagetool.server.HTTPServer")
+
+
+;; Publishing
+(straight-use-package 'htmlize)
+
+(straight-use-package '(org-publish-rss :repo "https://git.sr.ht/~taingram/org-publish-rss"
+					:branch "master"))
+
+(setq org-publish-use-timestamps-flag nil)
+
+(setq org-export-global-macros
+      '(("timestamp" . "@@html:<div class=\"entry-timestamp\">$1</div>@@")
+        ("excerpt" . "@@html:<div class=\"entry-excerpt\">$1</div>@@")
+	("entry-title" . "@@html:<h1 class=\"entry-title\"><a href=posts/$1>$2</a></h1>@@")
+        ))
+
+(defun my/org-sitemap-entry-format (entry style project)
+  "Format ENTRY in org-publish PROJECT Sitemap format ENTRY ENTRY STYLE format that includes date."
+  (let ((filename (org-publish-find-title entry project)))
+    (if (= (length filename) 0)
+        (format "*%s*" entry)
+      (format "{{{entry-title(%s,%s)}}} {{{timestamp(%s)}}}"
+              (string-replace ".org" ".html" entry)
+              filename
+              (format-time-string "%d %B %Y"
+                                  (org-publish-find-date entry project))
+              ;; (my/get-preview entry project)
+	      ))))
+
+(setq org-publish-project-alist
+      '(("posts"
+         :base-directory "~/Documentos/blog/posts"
+	 :publishing-directory "/sshx:pcera:/home/www/posts"
+	 ;; :publishing-directory "~/Documentos/Trasteando/blog-html/posts/" ;; Draft directory
+         :publishing-function org-html-publish-to-html
+         :htmlized-source t
+
+         :section-numbers nil
+         :with-toc nil
+         :with-drawers t
+         :with-title nil
+         :with-sub-superscript nil
+         :with-creator nil
+	 :with-footnotes t
+         :author "Álvaro Ferrero"
+         :email "me@aferrero.boo"
+
+	 :auto-rss t
+	 :rss-title "Movidas de Ferrero"
+	 :rss-description "Nada de lo que digo tiene sentido"
+	 :rss-with-content top
+	 :completion-function org-publish-rss
+	 :rss-link "www.aferrero.boo"
+	 :rss-root-url "www.aferrero.boo/posts/"
+	 :rss-file "../rss.xml"
+
+         :html-link-home "/"
+         :html-head "
+           <title>Movidas de Ferrero</title>
+           <link rel='stylesheet' type='text/css' href='/res/style.css' />
+           <link rel='alternate' type='application/rss+xml' title='Movidas de Ferrero' href='/rss.xml' />
+           <link rel='openid.delegate' href='https://example.com/' />
+           <link rel='openid.server' href='https://openid.indieauth.com/openid' />
+           <link rel='icon' type='image/png' sizes='32x32' href='/img/logo.png'>"
+         :html-head-include-default-style nil
+         :html-head-include-scripts nil
+         :html-home/up-format ""
+         :html-link-up ""
+         :html-link-home ""
+         :html-preamble "
+           <div class='wrapper'>
+             <div class='topbar'>
+               <a href='/' class='site-avatar'><img src='/img/logo.png' alt='Movidas de Ferrero' /></a>
+               <div class='site-info'>
+                 <h1 class='site-name'><a href='/'>Movidas de Ferrero</a></h1>
+                 <p class='site-description'>Nada de lo que digo tiene sentido.</p>
+               </div>
+             </div>
+           </div>
+           <header class='header'>
+             <h1 class='title'>%t</h1>
+             <div class='date'>%d</div>
+           </header>"
+         :html-postamble "
+           <div class='wrapper'>
+             <div class='bottombar'>
+               <div id='h-card-container' class='h-card'>
+                 <div class='profile-photo'>
+                   <img src='https://avatars.githubusercontent.com/u/32842562?v=4' class='u-photo' alt='Mi foto de perfil de GitHub' style='border-radius: 1000px;'>
+                 </div>
+               <div class='about'>
+                 Me llamo <a href='http://www.aferrero.boo' class='u-uid u-url p-name' rel='me'>Álvaro Ferrero</a>, soy un <span class='p-role'>completo nini esperando a poder matricularme de nuevo</span>. <br>Ahora que tengo mucho tiempo libre intento contar alguna mierda aquí de vez en cuando.
+                 <br><br>
+                 Podéis encontrarme a través de:
+                 <a href='mailto:blog@aferrero.boo' rel='me'>Correo</a>
+                 <a href='https://github.com/Alfedi' target='_blank' rel='me'>GitHub</a>
+                 <a href='https://bsky.app/profile/aferrero.boo' target='_blank' rel='me'>Bluesky</a>
+                 <a href='https://instagram.com/alfedi3865' target='_blank' rel='me'>Instagram</a>
+                 <a href='https://www.twitter.com/Alfedi_' target='_blank' rel='me'>Twitter</a>
+                 <div class='friends'>
+                 Blogs de gente guay:
+                 <a href='https://aafrecct.page/'>Borja</a>
+                 </div>
+                 <div class='creator'>
+                   Creado con ❤️ %c
+                   <br>
+                   Tema basado en <a href='https://github.com/amitmerchant1990/reverie' target='_blank'>Reverie</a> para <a href='https://jekyllrb.com/'>Jekyll</a>
+                   <br>
+                   La fuente utilizada es <a href='https://indestructibletype.com/Jost.html' target='_blank'>Jost</a>
+                 </div>
+               </div>
+             </div>
+           </div>"
+         :auto-sitemap t
+         :sitemap-filename "../index.org"
+         :sitemap-title "Lista de posts"
+         :sitemap-sort-files anti-chronologically
+         :sitemap-style list
+         :html-metadata-timestamp-format "%A, %d %B %Y"
+         :sitemap-format-entry my/org-sitemap-entry-format
+         :language "es")
+        ("res"
+         :base-directory "~/Documentos/blog/res"
+	 :publishing-directory "/sshx:pcera:/home/www/res"
+	 ;; :publishing-directory "~/Documentos/Trasteando/blog-html/res" ;; Draft
+         :base-extension "css"
+         :publishing-function org-publish-attachment)
+        ("img"
+         :base-directory "~/Documentos/blog/img/"
+         :base-extension ".*"
+	 :publishing-directory "/sshx:pcera:/home/www/img"
+         ;; :publishing-directory "~/Documentos/Trasteando/blog-html/img" ;; Draft
+	 :publishing-function org-publish-attachment
+         :recursive t)
+	("rss"
+	 :base-directory "~/Documentos/blog/"
+	 :publishing-directory "/sshx:pcera:/home/www/"
+	 ;; :publishing-directory "~/Documentos/Trasteando/blog-html/" ;; Draft
+	 :base-extension "xml"
+	 :publishing-function org-publish-attachment)
+        ("blog"
+         :components ("posts" "res" "img" "rss"))))
