@@ -399,6 +399,9 @@
   (setq org-icalendar-use-deadline '(event-if-todo event-if-not-todo todo-due))
   (setq org-icalendar-use-scheduled '(todo-start event-if-todo event-if-not-todo)))
 
+(straight-use-package 'org-download)
+(require 'org-download)
+
 ;; project.el enhancements
 (defcustom project-root-markers
   '("Cargo.toml"
