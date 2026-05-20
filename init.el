@@ -598,8 +598,8 @@
          :rss-description "Nada de lo que digo tiene sentido"
          :rss-with-content top
          :completion-function org-publish-rss
-         :rss-link "www.aferrero.boo"
-         :rss-root-url "www.aferrero.boo/posts/"
+         :rss-link "/"
+         :rss-root-url "https://www.aferrero.boo/posts/"
          :rss-file "../rss.xml"
 
          :html-link-home "/"
