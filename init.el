@@ -429,14 +429,10 @@
 
 (add-to-list 'project-find-functions #'project-find-root)
 
-(straight-use-package 'org-download)
-(require 'org-download)
+(add-to-list 'project-switch-commands '(magit-project-status "Magit" "m"))
 
 ;; Programming config
-(straight-use-package 'transient)
-(use-package magit
-  :straight t
-  :bind ("C-x p m" . magit-project-status))
+(straight-use-package 'magit)
 
 (require 'treesit)
 ;; (straight-use-package 'tree-sitter)
