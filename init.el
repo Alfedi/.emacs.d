@@ -289,6 +289,8 @@
 
 (setq org-directory (concat (getenv "HOME") "/Documentos/org-notes/roam/"))
 
+(straight-use-package 'magit) ;; Magit need to load after org-roam because of some transient problems
+
 (use-package org-roam
   :straight t
   :init
@@ -429,10 +431,8 @@
 
 (add-to-list 'project-find-functions #'project-find-root)
 
-(add-to-list 'project-switch-commands '(magit-project-status "Magit" "m"))
-
 ;; Programming config
-(straight-use-package 'magit)
+(add-to-list 'project-switch-commands '(magit-project-status "Magit" "m"))
 
 (require 'treesit)
 ;; (straight-use-package 'tree-sitter)
