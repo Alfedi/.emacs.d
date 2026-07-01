@@ -640,6 +640,7 @@
                  Me llamo <a href='http://www.aferrero.boo' class='u-uid u-url p-name' rel='me'>Álvaro Ferrero</a>, soy un <span class='p-role'>completo nini esperando a poder matricularme de nuevo</span>. <br>Ahora que tengo mucho tiempo libre intento contar alguna mierda aquí de vez en cuando.
                  <br><br>
                  Podéis encontrarme a través de:
+                 <a href='https://www.aferrero.boo/rss.xml' rel='me'>RSS</a>
                  <a href='mailto:blog@aferrero.boo' rel='me'>Correo</a>
                  <a href='https://github.com/Alfedi' target='_blank' rel='me'>GitHub</a>
                  <a href='https://bsky.app/profile/aferrero.boo' target='_blank' rel='me'>Bluesky</a>
