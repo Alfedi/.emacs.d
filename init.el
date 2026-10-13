@@ -499,6 +499,8 @@
 
 ;; misc packages
 
+(straight-use-package 'kdl-mode)
+
 (use-package pdf-tools
   :straight t
   :hook
@@ -547,6 +549,8 @@
       languagetool-console-command "org.languagetool.commandline.Main"
       languagetool-server-command "org.languagetool.server.HTTPServer")
 
+
+(straight-use-package 'rainbow-mode)
 
 ;; Publishing
 (straight-use-package 'htmlize)
