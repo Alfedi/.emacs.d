@@ -1,4 +1,4 @@
-;; straight.el configuration
+;; straight.el configuration  -*- lexical-binding: t; -*-
 (setq package-enable-at-startup nil)
 
 (setq straight-repository-branch "main")
@@ -79,7 +79,6 @@
   :straight t
   :config
   (dashboard-setup-startup-hook)
-  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*"))) ;; emacs daemon
   (setq dashboard-startup-banner 'logo)
   (setq dashboard-items '((projects . 10)
                           (bookmarks . 7)))
@@ -425,7 +424,7 @@
 
 (defun project-find-root (path)
   "Search up the PATH for `project-root-markers'."
-  (when-let ((root (locate-dominating-file path #'project-root-p)))
+  (when-let* ((root (locate-dominating-file path #'project-root-p)))
     (cons 'transient (expand-file-name root))))
 
 (add-to-list 'project-find-functions #'project-find-root)
