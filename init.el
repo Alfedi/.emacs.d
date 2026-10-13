@@ -266,7 +266,7 @@
 
 (setq org-todo-repeat-to-state "TODO")
 (setq org-agenda-files
-      '("~/Documentos/org-notes/Tareas.org" "~/Documentos/org-notes/Agenda.org"))
+      '("~/Documentos/org-notes/Tareas.org" "~/Documentos/org-notes/Agenda.org" "~/Documentos/org-notes/Universidad.org"))
 (setq org-agenda-diary-file "~/Documentos/org-notes/Agenda.org")
 (add-hook 'calendar-load-hook
           (lambda ()
@@ -341,12 +341,10 @@
 (setq org-capture-templates
       '(("t" "Todo" entry (file "~/Documentos/org-notes/Tareas.org")
          "* TODO %? \n")
-        ("n" "Proyect Note" entry (file "~/Documentos/org-notes/Proyectos.org")
-         "* %? %^g \n %a")
-        ("x" "Examen" plain (file+headline "~/Documentos/org-notes/Agenda.org" "Examenes")
-         "%\\%(org-date %^{date}) Examen de %?")
-        ("e" "Evento" plain (file+headline "~/Documentos/org-notes/Agenda.org" "Eventos")
-         "%\\%(org-date %^{date}) %?")))
+	("d" "Deberes" entry (file "~/Documentos/org-notes/Universidad.org")
+	 "* TODO %? \n%^g")
+	("a" "Agenda" entry (file "~/Documentos/org-notes/Agenda.org")
+	 "* %? \n%^t")))
 
 (add-to-list
  'org-structure-template-alist
