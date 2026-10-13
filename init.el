@@ -364,7 +364,8 @@
    (mermaid . t)
    (ditaa . t)
    (shell . t)
-   (python . t)))
+   (python . t)
+   (latex . t)))
 (setq org-confirm-babel-evaluate nil)
 
 (setq org-enforce-todo-dependencies t)
@@ -514,7 +515,10 @@
   (setq TeX-parse-self t)
   (setq-default TeX-master nil)
   (add-to-list 'exec-path "/usr/bin/vendor_perl") ;; Biber command
-  (setq tex-fontify-script nil))
+  (setq tex-fontify-script nil)
+  :hook
+  (LaTeX-mode . turn-on-reftex))
+(load "auctex.el" nil t t)
 
 ;; Add pdf-tools as view option in auctex
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
