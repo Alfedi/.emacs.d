@@ -286,6 +286,11 @@
 (require 'ox-beamer)
 (straight-use-package 'ox-epub)
 
+(use-package gnuplot
+  :straight t)
+
+(straight-use-package 'gnuplot-mode)
+
 (setq org-directory (concat (getenv "HOME") "/Documentos/org-notes/roam/"))
 
 (straight-use-package 'magit) ;; Magit need to load after org-roam because of some transient problems
