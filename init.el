@@ -502,6 +502,27 @@
 
 ;; misc packages
 
+(use-package ghostel
+  :straight t
+  :config
+  (setq ghostel-tramp-shells
+	'(("ssh" login-shell)
+          ("sshx" login-shell)
+          ("scp" login-shell)))
+  (setq ghostel-tramp-shell-integration t))
+
+(with-eval-after-load 'org (require 'ghostel-org))
+
+(use-package consult-ghostel
+  :straight t
+  :hook (after-init . consult-ghostel-mode)
+  :bind (("M-g t" . consult-ghostel)
+         :map project-prefix-map
+         ("m" . consult-ghostel-project)
+         :map ghostel-semi-char-mode-map
+         ("C-c h" . consult-ghostel-history)))
+
+
 (straight-use-package 'kdl-mode)
 
 (use-package pdf-tools
