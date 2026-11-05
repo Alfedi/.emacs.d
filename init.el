@@ -736,3 +736,6 @@
          :publishing-function org-publish-attachment)
         ("blog"
          :components ("posts" "res" "fonts" "img" "rss"))))
+
+
+(straight-use-package 'nix-mode)
