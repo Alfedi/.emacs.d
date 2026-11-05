@@ -346,10 +346,10 @@
 (setq org-capture-templates
       '(("t" "Todo" entry (file "~/Documentos/org-notes/Tareas.org")
          "* TODO %? \n")
-	("d" "Deberes" entry (file "~/Documentos/org-notes/Universidad.org")
-	 "* TODO %? \n%^g")
-	("a" "Agenda" entry (file "~/Documentos/org-notes/Agenda.org")
-	 "* %? \n%^t")))
+        ("d" "Deberes" entry (file "~/Documentos/org-notes/Universidad.org")
+         "* TODO %? \n%^g")
+        ("a" "Agenda" entry (file "~/Documentos/org-notes/Agenda.org")
+         "* %? \n%^t")))
 
 (add-to-list
  'org-structure-template-alist
