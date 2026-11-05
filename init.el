@@ -37,15 +37,18 @@
 (setq custom-file "~/.emacs.d/.emacs-custom.el")
 (add-to-list 'default-frame-alist '(font . "Mononoki Nerd Font Mono 15"))
 (set-frame-font "Mononoki Nerd Font Mono 15" nil t)
-(put 'downcase-region 'disabled nil)
-(put 'upcase-region 'disabled nil)
+;; (put 'downcase-region 'disabled nil)
+;; (put 'upcase-region 'disabled nil)
+(delete-trailing-whitespace-mode t)
+
 
 (use-package doom-themes
   :straight t
   :config
-  (load-theme 'doom-monokai-spectrum t)
+  (load-theme 'doom-acario-dark t)
   (doom-themes-org-config)
-  (doom-themes-visual-bell-config))
+  (doom-themes-visual-bell-config)
+  (doom-themes-treemacs-config))
 
 (use-package rainbow-delimiters
   :straight t
@@ -216,8 +219,6 @@
   (message "Indent buffer: Done."))
 
 (global-set-key "\M-i" 'iwb)
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (use-package corfu
   :straight t
@@ -466,6 +467,7 @@
 
 ;;;; eglot
 (require 'eglot)
+(add-hook 'eglot-managed-mode-hook '(add-hook 'before-save-hook 'eglot-format))
 (add-hook 'before-save-hook 'eglot-format)
 (add-hook 'js-mode-hook 'eglot-ensure)
 (add-hook 'python-mode-hook 'eglot-ensure)
