@@ -545,6 +545,14 @@
   (LaTeX-mode . turn-on-reftex))
 (load "auctex.el" nil t t)
 
+(use-package overleaf
+  :straight t
+  :custom
+  (overleaf-use-nerdfont t "Use nerd-font icons for the modeline.")
+  :config
+  (setq overleaf-cookies
+	(overleaf-read-cookies-from-firefox :firefox-folder "~/.config/librewolf/librewolf" :profile "default-default")))
+
 ;; Add pdf-tools as view option in auctex
 (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
       TeX-source-correlate-start-server t)
